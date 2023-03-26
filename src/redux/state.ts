@@ -1,8 +1,9 @@
-import images from '../assets/images.png';
+import avatar from '../assets/avatar.png';
 
 export type DialogsType = {
    id: number
    name: string
+   image: string
 }
 
 export type MessagesType = {
@@ -43,12 +44,12 @@ export type RootStateType = {
 export let state: RootStateType = {
    dialogsPage: {
       dialogs: [
-         {id: 1, name: 'Jon'},
-         {id: 2, name: 'Andrey'},
-         {id: 3, name: 'Max'},
-         {id: 4, name: 'Franko'},
-         {id: 5, name: 'Olga'},
-         {id: 6, name: 'Gram'},
+         {id: 1, name: 'Jon', image: avatar},
+         {id: 2, name: 'Andrey', image: avatar},
+         {id: 3, name: 'Max', image: avatar},
+         {id: 4, name: 'Franko', image: avatar},
+         {id: 5, name: 'Olga', image: avatar},
+         {id: 6, name: 'Gram', image: avatar},
       ],
       messages: [
          {message: 'Hello'},
