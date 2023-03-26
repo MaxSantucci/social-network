@@ -1,8 +1,9 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  /*text-align: center;*/
+   /*max-width: 1280px;*/
+   margin: 0 auto;
+   min-height: 100vh;
+   /*padding: 2rem;*/
+   /*text-align: center;*/
 }
 
 /*.logo {*/
@@ -39,4 +40,26 @@
 
 /*.read-the-docs {*/
 /*  color: #888;*/
+/*}*/
+
+/*.app-wrapper {*/
+/*   display: grid;*/
+/*   grid-template-areas:*/
+/*   "h h"*/
+/*   "n c";*/
+
+/*   grid-template-rows: 60px 1fr;*/
+/*   grid-template-columns: 2fr 10fr;*/
+/*}*/
+
+/*.header {*/
+/*   grid-area: h;*/
+/*}*/
+
+/*.header {*/
+/*   grid-area: n;*/
+/*}*/
+
+/*. content {*/
+/*   grid-area: c;*/
 /*}*/
