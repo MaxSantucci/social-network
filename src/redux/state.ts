@@ -7,6 +7,7 @@ export type DialogsType = {
 }
 
 export type MessagesType = {
+   id: number
    message: string
 }
 
@@ -52,9 +53,9 @@ export let state: RootStateType = {
          {id: 6, name: 'Gram', image: avatar},
       ],
       messages: [
-         {message: 'Hello'},
-         {message: 'Go learn'},
-         {message: 'Typescript'},
+         {id: 1, message: 'Hello'},
+         {id: 2, message: 'Go learn'},
+         {id: 3, message: 'Typescript'},
       ],
    },
    profilePage: {

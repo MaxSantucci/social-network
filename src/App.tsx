@@ -16,7 +16,6 @@ interface RootStateType {
    }
 }
 
-
 function App(props: RootStateType) {
 
    return (
@@ -36,7 +35,6 @@ function App(props: RootStateType) {
                <Contact state={props.state.contactsPage}/>
             </div>
          </div>
-         <div>stert dev</div>
       </BrowserRouter>
    )
 }

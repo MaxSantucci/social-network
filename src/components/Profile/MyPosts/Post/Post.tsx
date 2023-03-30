@@ -11,7 +11,9 @@ export const Post = (props: TypePropsPost) => {
       <div>
          <img className='w-30 h-10 rounded-2xl' src={avatar} alt="avatar"/>
          {props.message}
-         <div><span>like </span>{props.likesCount}</div>
+         <div>
+            <button><span>like </span>{props.likesCount}</button>
+         </div>
       </div>
    );
 };
