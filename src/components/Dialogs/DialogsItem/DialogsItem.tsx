@@ -4,15 +4,15 @@ import {NavLink} from 'react-router-dom';
 type PropsDialogsItemType = {
    to: string
    name: string
-
 }
 
 export const DialogsItem = (props: PropsDialogsItemType) => {
    const activeStyle = (navData: { isActive: boolean }) =>
-      navData.isActive ? 'text-white rounded-lg bg-active' : '';
+      navData.isActive ? 'text-white w-10 h-6 bg-active' : '';
+
 
    return (
-      <div>
+      <div className=''>
          <NavLink to={props.to} className={activeStyle}>{props.name}</NavLink>
       </div>
    )

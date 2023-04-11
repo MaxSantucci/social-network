@@ -1,30 +1,33 @@
 import React, {ChangeEvent, useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {Route, Routes, useParams} from 'react-router-dom';
 import {DialogsItem} from './DialogsItem/DialogsItem';
 import {Messages} from './Messages/Messages';
+import {ActionsType, addMessageActionCreator} from '../../redux/state';
+import Chat from './Chat';
 
 type DialogsType = {
-   id: number
+   id: string
    name: string
+   messages: Array<MessagesType>
 }
 
 type MessagesType = {
-   id: number
+   id: string
    message: string
+   // userId: string
 }
 
 type PropsTypeDialogs = {
    state: {
       dialogs: Array<DialogsType>
-      messages: Array<MessagesType>
    }
+   dispatch: (action: ActionsType) => void
 }
 
 export const Dialogs = (props: PropsTypeDialogs) => {
+   let {userId} = useParams()
 
-   let [message, setMessage] = useState("")
-
-   let dialogsElement = props.state.dialogs.map((el) => {
+   let dialogsElements = props.state.dialogs.map((el) => {
       return (
          <DialogsItem
             key={el.id}
@@ -34,45 +37,33 @@ export const Dialogs = (props: PropsTypeDialogs) => {
       )
    })
 
-   let messagesElement = props.state.messages.map((element) => {
-      return(
-         <Messages key={element.id} message={element.message}/>
-      )
-   })
+   // function messagesElements() {
+   //    const userDialog = userId ? props.state.dialogs.find(d => d.id === userId) : null
+   //    if (userDialog) {
+   //       return userDialog.messages.map((message) => (
+   //          <Messages key={message.id} message={message.message}/>
+   //       ))
+   //    }
+   //    return null
+   // }
 
-   const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-      setMessage(event.currentTarget.value)
-   }
-
-   const onAddMessageHandler = () => {
-      if(message.trim()) {
-         let newMessage: MessagesType = {
-            id: props.state.messages.length + 1,
-            message: message,
-         }
-         props.state.messages.push(newMessage)
-         setMessage('')
-      }
-   }
-
+   console.log(userId)
    return (
       <div className="grid grid-cols-12">
          <div className="p-3 col-span-2">
-            {dialogsElement}
+            {dialogsElements}
          </div>
-         <div className="p-3 col-span-10 text-black">
-            {messagesElement}
-            <div className='flex flex-col items-center pt-2'>
-               <textarea
-                  value={message}
-                  onChange={onChangeMessageHandler}
-               ></textarea>
-               <button
-                  className='mt-1 bg-black text-white'
-                  onClick={onAddMessageHandler}
-               >Add message</button>
+         <Routes>
+            <Route path="/dialogs/:userId"/>
+         </Routes>
+         {userId ? (
+            <Chat  dispatch={props.dispatch}/>
+         ) : null}
+         {!userId ? (
+            <div className="p-3 col-span-10 text-black">
+               Please select a dialog to start messaging.
             </div>
-         </div>
+         ) : null}
       </div>
    );
 };

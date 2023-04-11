@@ -1,19 +1,22 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, MouseEvent, useState} from 'react';
 import {Post} from './Post/Post';
+import {v1} from 'uuid';
+import {ActionsType, addPostActionCreator} from '../../../redux/state';
 
 export type PostsType = {
-   id: number
+   id: string
    message: string
    likesCount: number
 }
 
 type MyPostsTypeProps = {
-      posts: Array<PostsType>
+   posts: Array<PostsType>
+   dispatch: (action: ActionsType) => void
 }
 
 export const MyPosts = (props: MyPostsTypeProps) => {
 
-   let [post, setPost] = useState('')
+   let [post, setPost] = useState<string>("")
 
    let postsElement = props.posts.map((p) => {
       return (
@@ -25,19 +28,11 @@ export const MyPosts = (props: MyPostsTypeProps) => {
       )
    })
 
-   const onClickAddPostHandler = () => {
-      if (post.trim()) {
-         const newPost: PostsType = {
-            id: props.posts.length + 1,
-            message: post,
-            likesCount: 0,
-         }
-         // let newAdd = [newPost, ...props.posts]
-         props.posts.unshift(newPost);
-         setPost('');
-      }
+   const addPostHandler = () => {
+      props.dispatch(addPostActionCreator(post))
+      setPost('')
+      console.log(post)
    }
-
 
    const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
       setPost(event.currentTarget.value)
@@ -56,7 +51,7 @@ export const MyPosts = (props: MyPostsTypeProps) => {
             </div>
             <div>
                <button
-                  onClick={onClickAddPostHandler}
+                  onClick={addPostHandler}
                   className="rounded-lg bg-blue-900 text-amber-50"
                >
                   Add post

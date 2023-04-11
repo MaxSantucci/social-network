@@ -12,8 +12,8 @@ export const Contact = (props: ContactPropsType) => {
 
    let contactsMap = props.state.contacts.map(c => {
       return (
-         <a href='/'>
-            <div key={c.id} className='text-black flex mb-3'>
+         <a href='/' key={c.id} >
+            <div className='text-black flex mb-3'>
                <img className='w-18 h-6 rounded-2xl' src={avatar} alt="avatar"/>
                <div className='ml-2'>{c.name} </div>
                <div className='ml-1'>{c.surname}</div>
