@@ -1,13 +1,12 @@
 import avatar from '../assets/avatar.png';
 import {v1} from 'uuid';
-
-const ADD_POST = 'ADD-POST'
-const ADD_MESSAGE = 'ADD-MESSAGE'
+import {addPostActionCreator, profileReducer} from './profile-reducer';
+import {addMessageActionCreator, dialogsReducer} from './dialogs-reducer';
 
 export type DialogsType = {
    id: string
    name: string
-   image: string
+   image?: string
    messages: Array<MessagesType>
 }
 
@@ -54,15 +53,8 @@ export type StoreType = {
    dispatch: (action: ActionsType) => void
 }
 
-
 export type ActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof addMessageActionCreator>
 
-export let addPostActionCreator = (post: string) => ({type: ADD_POST, post: post} as const)
-export let addMessageActionCreator = (userId: string, message: string) => ({
-   type: ADD_MESSAGE,
-   userId: userId,
-   message: message
-} as const)
 
 export let store: StoreType = {
    _state: {
@@ -138,38 +130,11 @@ export let store: StoreType = {
       this._callSubscriber = observer
    },
    dispatch(action) {
-      if (action.type === ADD_POST) {
-         let newPost = {id: v1(), message: action.post, likesCount: 0}
-         let newPosts = [newPost, ...this._state.profilePage.posts]
-         let newState = {
-            ...this._state,
-            profilePage: {
-               ...this._state.profilePage,
-               posts: newPosts
-            }
-         }
-         this._state = newState
-         this._callSubscriber()
-      } else if (action.type === ADD_MESSAGE) {
-         const dialogs = this._state.dialogsPage.dialogs.map(el => {
-            if (el.id === action.userId) {
-               const newMessage = {id: v1(), message: action.message}
-               const updateNewMessage = [...el.messages, newMessage]
-               return {...el, messages: updateNewMessage}
-            }
-            return el
-         })
-         const updateState = {
-            ...this._state,
-            dialogsPage: {
-               ...this._state.dialogsPage,
-               dialogs: dialogs
-            }
-         }
-         console.log(updateState)
-         this._state = updateState
-         this._callSubscriber()
-      }
+
+      this._state.profilePage = profileReducer(this._state.profilePage, action)
+      this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+
+      this._callSubscriber()
    }
 }
 

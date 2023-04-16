@@ -1,5 +1,5 @@
 import React from 'react';
-import {ContactsType} from '../../redux/state';
+import {ContactsType} from '../../redux/store';
 import avatar from '../../assets/avatar.png';
 
 type ContactPropsType = {

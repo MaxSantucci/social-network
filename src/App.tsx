@@ -5,9 +5,11 @@ import {Profile} from './components/Profile/Profile';
 import React from 'react';
 import {Dialogs} from './components/Dialogs/Dialogs';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {StoreType} from './redux/state';
+import {StoreType} from './redux/store';
 import {Contact} from './components/Contact/Contact';
 import News from './components/News/News';
+import {Error} from './components/Error/Error';
+import Chat from './components/Dialogs/Chat';
 
 type RootStateType = {
    store: StoreType
@@ -34,10 +36,14 @@ function App(props: RootStateType) {
                      <Dialogs
                         state={state.dialogsPage}
                         dispatch={props.store.dispatch.bind(props.store)}
-                     />
-                  }/>
+                     />}
+                  >
+                     <Route path=":userId" element={<Chat dialogs={state.dialogsPage.dialogs}
+                                                          dispatch={props.store.dispatch.bind(props.store)
+                                                          }/>}/>
+                  </Route>
                   <Route path="/news" element={<News/>}/>
-                  <Route path='*' element={<div>Error</div>}/>
+                  <Route path="/*" element={<Error/>}/>
                </Routes>
             </div>
             <div className="bg-gray-200 text-custom" style={{gridArea: 'f', width: 175}}>

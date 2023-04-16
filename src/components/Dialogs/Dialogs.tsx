@@ -1,9 +1,8 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Route, Routes, useParams} from 'react-router-dom';
+import Reactи from 'react';
+import {Outlet, useParams} from 'react-router-dom';
 import {DialogsItem} from './DialogsItem/DialogsItem';
-import {Messages} from './Messages/Messages';
-import {ActionsType, addMessageActionCreator} from '../../redux/state';
-import Chat from './Chat';
+import {ActionsType} from '../../redux/store';
+
 
 type DialogsType = {
    id: string
@@ -14,7 +13,6 @@ type DialogsType = {
 type MessagesType = {
    id: string
    message: string
-   // userId: string
 }
 
 type PropsTypeDialogs = {
@@ -25,8 +23,9 @@ type PropsTypeDialogs = {
 }
 
 export const Dialogs = (props: PropsTypeDialogs) => {
+   // const state = props.store.getState().dialogsPage
    let {userId} = useParams()
-
+   console.log(props)
    let dialogsElements = props.state.dialogs.map((el) => {
       return (
          <DialogsItem
@@ -37,30 +36,15 @@ export const Dialogs = (props: PropsTypeDialogs) => {
       )
    })
 
-   // function messagesElements() {
-   //    const userDialog = userId ? props.state.dialogs.find(d => d.id === userId) : null
-   //    if (userDialog) {
-   //       return userDialog.messages.map((message) => (
-   //          <Messages key={message.id} message={message.message}/>
-   //       ))
-   //    }
-   //    return null
-   // }
-
-   console.log(userId)
+   console.log(props.state)
    return (
       <div className="grid grid-cols-12">
          <div className="p-3 col-span-2">
             {dialogsElements}
          </div>
-         <Routes>
-            <Route path="/dialogs/:userId"/>
-         </Routes>
-         {userId ? (
-            <Chat  dispatch={props.dispatch}/>
-         ) : null}
+         <Outlet/>
          {!userId ? (
-            <div className="p-3 col-span-10 text-black">
+            <div className="p-3 text-center text-2xl col-span-10 text-black">
                Please select a dialog to start messaging.
             </div>
          ) : null}

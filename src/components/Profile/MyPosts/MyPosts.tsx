@@ -1,7 +1,7 @@
-import React, {ChangeEvent, MouseEvent, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Post} from './Post/Post';
-import {v1} from 'uuid';
-import {ActionsType, addPostActionCreator} from '../../../redux/state';
+import {ActionsType} from '../../../redux/store';
+import {addPostActionCreator} from '../../../redux/profile-reducer';
 
 export type PostsType = {
    id: string
@@ -31,7 +31,6 @@ export const MyPosts = (props: MyPostsTypeProps) => {
    const addPostHandler = () => {
       props.dispatch(addPostActionCreator(post))
       setPost('')
-      console.log(post)
    }
 
    const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
