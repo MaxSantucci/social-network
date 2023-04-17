@@ -1,22 +1,25 @@
 import React from 'react';
-import {ContactsType} from '../../redux/store';
 import avatar from '../../assets/avatar.png';
+import {v1} from 'uuid';
 
-type ContactPropsType = {
-   state: {
-      contacts: Array<ContactsType>
-   }
-}
 
-export const Contact = (props: ContactPropsType) => {
+export const Contact = () => {
 
-   let contactsMap = props.state.contacts.map(c => {
+   let contact = [
+      {id: v1(), name: 'Adriano', surname: 'Lambert'},
+      {id: v1(), name: 'Troy', surname: 'Derson'},
+      {id: v1(), name: 'Antony', surname: 'Farstepen'},
+      {id: v1(), name: 'Macej', surname: 'Kowalskiy'},
+      {id: v1(), name: 'Sara', surname: 'Jakor'},
+   ]
+
+   let contactsMap = contact.map(c => {
       return (
-         <a href='/' key={c.id} >
-            <div className='text-black flex mb-3'>
-               <img className='w-18 h-6 rounded-2xl' src={avatar} alt="avatar"/>
-               <div className='ml-2'>{c.name} </div>
-               <div className='ml-1'>{c.surname}</div>
+         <a href="/" key={c.id}>
+            <div className="text-black flex mb-3">
+               <img className="w-18 h-6 rounded-2xl" src={avatar} alt="avatar"/>
+               <div className="ml-2">{c.name} </div>
+               <div className="ml-1">{c.surname}</div>
             </div>
          </a>
       )

@@ -1,24 +1,17 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Post} from './Post/Post';
-import {ActionsType} from '../../../redux/store';
-import {addPostActionCreator} from '../../../redux/profile-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {addPost} from '../../../redux/profile/slice';
+import {selectPosts} from '../../../redux/profile/selectors';
+import {useAppDispatch} from '../../../redux/store';
 
-export type PostsType = {
-   id: string
-   message: string
-   likesCount: number
-}
 
-type MyPostsTypeProps = {
-   posts: Array<PostsType>
-   dispatch: (action: ActionsType) => void
-}
-
-export const MyPosts = (props: MyPostsTypeProps) => {
-
+export const MyPosts = () => {
    let [post, setPost] = useState<string>("")
-
-   let postsElement = props.posts.map((p) => {
+   const dispatch = useAppDispatch()
+   const posts = useSelector(selectPosts);
+   // console.log(useAppDispatch)
+   let postsElement = posts.map((p) => {
       return (
          <Post
             key={p.id}
@@ -29,7 +22,7 @@ export const MyPosts = (props: MyPostsTypeProps) => {
    })
 
    const addPostHandler = () => {
-      props.dispatch(addPostActionCreator(post))
+      dispatch(addPost(post))
       setPost('')
    }
 
@@ -42,11 +35,7 @@ export const MyPosts = (props: MyPostsTypeProps) => {
          <h3 className="p-2.5">My post</h3>
          <div className="p-2.5">
             <div>
-               <textarea
-                  value={post}
-                  onChange={onPostChangeHandler}
-               >
-               </textarea>
+               <textarea value={post} onChange={onPostChangeHandler}></textarea>
             </div>
             <div>
                <button

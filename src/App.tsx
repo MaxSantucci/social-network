@@ -5,18 +5,18 @@ import {Profile} from './components/Profile/Profile';
 import React from 'react';
 import {Dialogs} from './components/Dialogs/Dialogs';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {StoreType} from './redux/store';
+// import {StoreType} from './redux/store2';
 import {Contact} from './components/Contact/Contact';
 import News from './components/News/News';
 import {Error} from './components/Error/Error';
 import Chat from './components/Dialogs/Chat';
 
-type RootStateType = {
-   store: StoreType
-}
+// type RootStateType = {
+//    store: StoreType
+// }
 
-function App(props: RootStateType) {
-   const state = props.store.getState()
+function App() {
+   // const state = props.store.getState()
    return (
       <BrowserRouter>
          <div className="grid grid-cols-2 grid-rows-[60px,1fr] grid-cols-[2fr,10fr] min-h-screen"
@@ -27,27 +27,19 @@ function App(props: RootStateType) {
             <div className="bg-gray-100 text-custom" style={{gridArea: 'c'}}>
                <Routes>
                   <Route path="/profile" element={
-                     <Profile
-                        state={state.profilePage}
-                        dispatch={props.store.dispatch.bind(props.store)}
-                     />
+                     <Profile />
                   }/>
                   <Route path="/dialogs" element={
-                     <Dialogs
-                        state={state.dialogsPage}
-                        dispatch={props.store.dispatch.bind(props.store)}
-                     />}
+                     <Dialogs />}
                   >
-                     <Route path=":userId" element={<Chat dialogs={state.dialogsPage.dialogs}
-                                                          dispatch={props.store.dispatch.bind(props.store)
-                                                          }/>}/>
+                     <Route path=":userId" element={<Chat />}/>
                   </Route>
                   <Route path="/news" element={<News/>}/>
                   <Route path="/*" element={<Error/>}/>
                </Routes>
             </div>
             <div className="bg-gray-200 text-custom" style={{gridArea: 'f', width: 175}}>
-               <Contact state={state.contactsPage}/>
+               <Contact />
             </div>
          </div>
       </BrowserRouter>
