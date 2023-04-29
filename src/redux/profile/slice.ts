@@ -20,28 +20,15 @@ const profileSlice = createSlice({
       addPost: (state, action: PayloadAction<string>) => {
          let newPost: PostsType = {id: v1(), message: action.payload, likesCount: 0}
          state.profilePage.posts = [newPost, ...state.profilePage.posts]
+      },
+      deletePost: (state, action: PayloadAction<string>) => {
+         const postId = action.payload
+         state.profilePage.posts = state.profilePage.posts.filter(el => el.id !== postId)
       }
    }
 })
 
-export const { addPost }  = profileSlice.actions
+export const { addPost, deletePost }  = profileSlice.actions
 
 export default profileSlice.reducer;
 
-// export let addPostActionCreator = (post: string) => ({type: ADD_POST, post: post} as const)
-// switch (action.type) {
-//    case ADD_POST:
-//       let newPost = {id: v1(), message: action.post, likesCount: 0}
-//       let newPosts = [newPost, state.profilePage.posts]
-//       let newState = {
-//          state,
-//          profilePage: {
-//             ...state.profilePage,
-//             posts: newPosts
-//          }
-//       }
-//       state = newState
-//       break;
-// }
-//
-// return state

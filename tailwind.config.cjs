@@ -11,6 +11,9 @@ module.exports = {
             black: "#000000",
             active: '#14213D'
          },
+         width: {
+
+         }
       },
    },
    plugins: [],

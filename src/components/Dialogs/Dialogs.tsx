@@ -2,12 +2,13 @@ import Reactи from 'react';
 import {Outlet, useParams} from 'react-router-dom';
 import {DialogsItem} from './DialogsItem/DialogsItem';
 import {useSelector} from 'react-redux';
-import {selectDialogs} from '../../redux/dialogs/selectors';
+import {selectDialogs} from 'redux/dialogs/selectors';
+import {useAppSelector} from '../../redux/store';
 
 export const Dialogs = () => {
    let {userId} = useParams()
 
-   const dialogs = useSelector(selectDialogs)
+   const dialogs = useAppSelector(selectDialogs)
 
    let dialogsElements = dialogs.map((el) => {
       return (

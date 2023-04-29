@@ -6,7 +6,7 @@ export type MessagesType = {
    message: string
 }
 
-export type Type = {
+export type DialogsType = {
    id: string
    name: string
    image?: string
@@ -14,7 +14,7 @@ export type Type = {
 }
 
 export type DialogPageType = {
-   dialogs: Type[]
+   dialogs: DialogsType[]
 }
 
 

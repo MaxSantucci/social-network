@@ -1,4 +1,4 @@
-import avatar from '../../assets/avatar.png';
+import avatar from 'assets/avatar.png';
 import {v1} from 'uuid';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AddMessageActionType, DialogsState} from './type';
@@ -59,21 +59,13 @@ export const dialogsSlice = createSlice({
    reducers: {
       addMessage: (state, action: PayloadAction<AddMessageActionType>) => {
          const {userId, message} = action.payload
-         const dialogs = state.dialogsPage.dialogs.map(el => {
+         state.dialogsPage.dialogs = state.dialogsPage.dialogs.map(el => {
             if (el.id === userId) {
                const newMessage = {id: v1(), isMe: true, message}
-               const updateNewMessage = [...el.messages, newMessage]
-               return {...el, messages: updateNewMessage}
+               return {...el, messages: [...el.messages, newMessage]}
             }
             return el
          })
-         return {
-            ...state,
-            dialogsPage: {
-               ...state.dialogsPage,
-               dialogs,
-            }
-         }
       }
    }
 })
@@ -81,28 +73,3 @@ export const dialogsSlice = createSlice({
 export const {addMessage} = dialogsSlice.actions;
 
 export default dialogsSlice.reducer;
-
-
-// case ADD_MESSAGE:
-//    const dialogs = state.dialogsPage.dialogs.map((el: { id: any; messages: any; }) => {
-//       if (el.id === action.userId) {
-//          const newMessage = {id: v1(), message: action.message}
-//          const updateNewMessage = [...el.messages, newMessage]
-//          return {...el, messages: updateNewMessage}
-//       }
-//       return el
-//    })
-//    const updateState = {
-//       ...state,
-//       dialogsPage: {
-//          ...state.dialogsPage,
-//          dialogs: dialogs
-//       }
-//    }
-//    state = updateState
-//    break;
-// export let addMessageActionCreator = (userId: string, message: string) => ({
-//    type: ADD_MESSAGE,
-//    userId: userId,
-//    message: message
-// } as const)

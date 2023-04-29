@@ -1,20 +1,21 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Post} from './Post/Post';
-import {useDispatch, useSelector} from 'react-redux';
-import {addPost} from '../../../redux/profile/slice';
-import {selectPosts} from '../../../redux/profile/selectors';
-import {useAppDispatch} from '../../../redux/store';
+import {useSelector} from 'react-redux';
+import {addPost} from 'redux/profile/slice';
+import {selectPosts} from 'redux/profile/selectors';
+import {useAppDispatch, useAppSelector} from 'redux/store';
 
 
 export const MyPosts = () => {
    let [post, setPost] = useState<string>("")
    const dispatch = useAppDispatch()
-   const posts = useSelector(selectPosts);
-   // console.log(useAppDispatch)
+   const posts = useAppSelector(selectPosts);
+
    let postsElement = posts.map((p) => {
       return (
          <Post
             key={p.id}
+            id={p.id}
             message={p.message}
             likesCount={p.likesCount}
          />
