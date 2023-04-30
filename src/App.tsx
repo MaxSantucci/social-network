@@ -9,7 +9,8 @@ import {Contact} from './components/Contact/Contact';
 import News from './components/News/News';
 import {Error} from './components/Error/Error';
 import ChatContainer from './components/Dialogs/Chat/ChatContainer';
-import {Users} from './components/Users/Users';
+import Users from "./components/Users/Users";
+// import {Users} from './components/Users/Users';
 
 function App() {
    return (
