@@ -18,6 +18,9 @@ export type UsersType = {
 
 export type UsersPageType = {
    users: UsersType[]
+   pageSize: number
+   totalUsersCount: number
+   currentPage: number
 }
 
 export type UsersState = {
@@ -25,5 +28,10 @@ export type UsersState = {
    status: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null
 }
+
+export type UsersParams = {
+   currentPage: string
+}
+
 
 

@@ -25,7 +25,7 @@ function App() {
                   <Route path="/dialogs" element={<Dialogs/>}>
                      <Route path=":userId" element={<ChatContainer/>}/>
                   </Route>
-                  <Route path="users" element={<Users/>}/>
+                  <Route path="/users" element={<Users/>}/>
                   <Route path="/news" element={<News/>}/>
                   <Route path="/*" element={<Error/>}/>
                </Routes>

@@ -18,6 +18,9 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
             <NavLink to="/dialogs" className={activeStyle}>Messages</NavLink>
          </div>
          <div>
+            <NavLink to="/users" className={activeStyle}>Users</NavLink>
+         </div>
+         <div>
             <NavLink to="/news" className={activeStyle}>News</NavLink>
          </div>
          <div>

@@ -5,6 +5,9 @@ import {fetchUsers} from "./asyncAction";
 const initialState: UsersState = {
    usersPage: {
       users: [],
+      pageSize: 5,
+      totalUsersCount: 20,
+      currentPage: 1
    },
    status: 'idle',
    error: null
@@ -35,6 +38,9 @@ export const usersSlice = createSlice({
       setUsers: (state, action: PayloadAction<UsersType[]>) => {
          state.usersPage.users = action.payload
       },
+      setCurrentPage(state, action: PayloadAction<number>) {
+         state.usersPage.currentPage = action.payload;
+      },
       // getUsersStart(state) {
       //    state.isLoading = true;
       //    state.error = null;
@@ -64,7 +70,7 @@ export const usersSlice = createSlice({
    }
 })
 
-export const {followUsers, unfollowUsers, setUsers} = usersSlice.actions;
+export const {followUsers, unfollowUsers, setUsers, setCurrentPage} = usersSlice.actions;
 
 export default usersSlice.reducer;
 
