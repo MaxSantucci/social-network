@@ -1,8 +1,9 @@
 import {v1} from 'uuid';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {PostsType, ProfileState} from './type';
+import {PostsType, ProfileState, ProfileUsersType} from './type';
+import {fetchUsers} from '../users/asyncAction';
+import {UsersType} from '../users/type';
 
-// const ADD_POST = 'ADD-POST'
 
 const initialState: ProfileState = {
    profilePage: {
@@ -11,6 +12,8 @@ const initialState: ProfileState = {
          {id: v1(), message: 'My first post', likesCount: 150}
       ],
    },
+   status: 'idle',
+   error: null
 }
 
 const profileSlice = createSlice({
@@ -25,7 +28,21 @@ const profileSlice = createSlice({
          const postId = action.payload
          state.profilePage.posts = state.profilePage.posts.filter(el => el.id !== postId)
       }
-   }
+   },
+   // extraReducers: (builder) => {
+   //    builder
+   //       .addCase(fetchProfile.pending, (state) => {
+   //          state.status = 'loading';
+   //       })
+   //       .addCase(fetchProfile.fulfilled, (state, action: PayloadAction<ProfileUsersType>) => {
+   //          state.status = 'succeeded';
+   //          state.profileUsers = action.payload;
+   //       })
+   //       .addCase(fetchProfile.rejected, (state, action) => {
+   //          state.status = 'failed';
+   //          state.error = action.error.message ?? 'Something went wrong';
+   //       });
+   // }
 })
 
 export const { addPost, deletePost }  = profileSlice.actions

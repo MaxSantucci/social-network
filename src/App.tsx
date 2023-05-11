@@ -10,6 +10,7 @@ import News from './components/News/News';
 import {Error} from './components/Error/Error';
 import ChatContainer from './components/Dialogs/Chat/ChatContainer';
 import {Users} from './components/Users/Users';
+import {ProfileUser} from './components/ProfileUser/ProfileUser';
 
 function App() {
    return (
@@ -22,6 +23,7 @@ function App() {
             <div className="bg-gray-100 text-custom" style={{gridArea: 'c'}}>
                <Routes>
                   <Route path="/profile" element={<Profile/>}/>
+                  <Route path="/profileUser/:userId" element={<ProfileUser/>}/>
                   <Route path="/dialogs" element={<Dialogs/>}>
                      <Route path=":userId" element={<ChatContainer/>}/>
                   </Route>

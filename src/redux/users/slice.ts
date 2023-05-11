@@ -1,16 +1,16 @@
 import {UsersState, UsersType} from './type';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {fetchUsers} from "./asyncAction";
+import {fetchUsers} from './asyncAction';
 
 const initialState: UsersState = {
    usersPage: {
       users: [],
-      pageSize: 5,
-      totalUsersCount: 20,
-      currentPage: 1
+      currentPage: 1,
+      isFetching: false,
+      totalCount: 0
    },
    status: 'idle',
-   error: null
+   error: null,
 }
 
 export const usersSlice = createSlice({
@@ -38,39 +38,33 @@ export const usersSlice = createSlice({
       setUsers: (state, action: PayloadAction<UsersType[]>) => {
          state.usersPage.users = action.payload
       },
-      setCurrentPage(state, action: PayloadAction<number>) {
+      setCurrentPage: (state, action: PayloadAction<number>) => {
          state.usersPage.currentPage = action.payload;
       },
-      // getUsersStart(state) {
-      //    state.isLoading = true;
-      //    state.error = null;
-      // },
-      // getUsersSuccess(state, action) {
-      //    state.isLoading = false;
-      //    state.usersPage.users = action.payload;
-      // },
-      // getUsersFailure(state, action) {
-      //    state.isLoading = false;
-      //    state.error = action.payload;
-      // }
+      toggleIsFetching: (state, action: PayloadAction<boolean>) => {
+         state.usersPage.isFetching = action.payload
+      }
    },
    extraReducers: (builder) => {
       builder
           .addCase(fetchUsers.pending, (state) => {
-             state.status = 'loading';
+             state.usersPage.isFetching = true
           })
-          .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<UsersType[]>) => {
+          .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<{items: UsersType[], totalCount: number}>) => {
              state.status = 'succeeded';
-             state.usersPage.users = action.payload;
+             state.usersPage.users = action.payload.items;
+             state.usersPage.totalCount = action.payload.totalCount
+             state.usersPage.isFetching = false
           })
           .addCase(fetchUsers.rejected, (state, action) => {
              state.status = 'failed';
              state.error = action.error.message ?? 'Something went wrong';
+             state.usersPage.isFetching = false
           });
    }
 })
 
-export const {followUsers, unfollowUsers, setUsers, setCurrentPage} = usersSlice.actions;
+export const {followUsers, unfollowUsers, setCurrentPage, toggleIsFetching} = usersSlice.actions;
 
 export default usersSlice.reducer;
 

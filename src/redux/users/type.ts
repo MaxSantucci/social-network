@@ -1,6 +1,3 @@
-import {v1} from 'uuid';
-import avatar from '../../assets/avatar.png';
-
 export type LocationUserType = {
    city: string
    country: string
@@ -8,19 +5,29 @@ export type LocationUserType = {
 
 export type UsersType = {
    id: string
+   name: string
    followed: boolean
+   uniqueUrlName: string
    avatar: string
-   firstName: string
-   lastName: string
-   position: string
-   location: LocationUserType
+   status: string
+   // id: string
+   // followed: boolean
+   // avatar: string
+   // firstName: string
+   // lastName: string
+   // position: string
+   // location: LocationUserType
+   // photos: {
+   //    small: string
+   //    large: string
+   // }
 }
 
 export type UsersPageType = {
    users: UsersType[]
-   pageSize: number
-   totalUsersCount: number
    currentPage: number
+   isFetching: boolean
+   totalCount: number
 }
 
 export type UsersState = {

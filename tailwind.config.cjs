@@ -12,8 +12,11 @@ module.exports = {
             active: '#14213D'
          },
          width: {
-
-         }
+            '100': '100px',
+         },
+         height: {
+            '100': '100px',
+         },
       },
    },
    plugins: [],
