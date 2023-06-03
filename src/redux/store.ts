@@ -3,12 +3,14 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import profile from './profile/slice';
 import dialogs from './dialogs/slice';
 import users from './users/slice';
+import auth from './auth/slice';
 
 export const store = configureStore({
    reducer: {
       profile,
       dialogs,
       users,
+      auth,
    }
 })
 

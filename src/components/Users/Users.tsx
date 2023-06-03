@@ -35,7 +35,6 @@ export const Users = () => {
    }
 
    const count = Math.round(totalCount / 10)
-   console.log(totalCount)
 
    return (
       <div>
