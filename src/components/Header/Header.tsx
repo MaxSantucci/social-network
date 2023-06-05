@@ -13,8 +13,6 @@ export const Header = () => {
    const userLogin = useAppSelector(selectAuthLogin);
 
    const dispatch = useDispatch();
-   console.log(isAuth)
-   console.log(userLogin)
 
    useEffect(() => {
       const fetchData = async () => {

@@ -4,7 +4,7 @@ import {Navbar} from './components/Navbar/Navbar';
 import {Profile} from './components/Profile/Profile';
 import React from 'react';
 import {Dialogs} from './components/Dialogs/Dialogs';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Contact} from './components/Contact/Contact';
 import News from './components/News/News';
 import {Error} from './components/Error/Error';
@@ -22,6 +22,8 @@ function App() {
             <Navbar/>
             <div className="bg-gray-100 text-custom" style={{gridArea: 'c'}}>
                <Routes>
+                  {/*<Route path="/" element={<Profile/>}/>*/}
+                  <Route path="/social-network" element={<Navigate to="/profile" />}/>
                   <Route path="/profile" element={<Profile/>}/>
                   <Route path="/profileUser/:userId" element={<ProfileUser/>}/>
                   <Route path="/dialogs" element={<Dialogs/>}>

@@ -7,6 +7,7 @@ import {Preloader} from '../common/Preloader/Preloader';
 import Pagination from '@mui/material/Pagination';
 import {NavLink} from 'react-router-dom';
 import avatar from '../../assets/avatar.png';
+import {fetchSetFollow, fetchSetUnfollow} from '../../redux/profile/slice';
 
 export const Users = () => {
 
@@ -21,13 +22,15 @@ export const Users = () => {
       }))
    }, [currentPage, dispatch])
 
+   const followButtonHandler = (id: string) => {
+      dispatch(fetchSetFollow({ userId: id }))
+   }
+
    const unfollowButtonHandler = (id: string) => {
-      dispatch(unfollowUsers(id))
+      dispatch(fetchSetUnfollow({ userId: id }))
    }
    //
-   const followButtonHandler = (id: string) => {
-      dispatch(followUsers(id))
-   }
+
 
    const onChangePage = (page: number) => {
       dispatch(setCurrentPage(page))

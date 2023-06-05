@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AuthStateType} from './types';
 
 export type AuthInitialStateType = {
@@ -8,7 +8,7 @@ export type AuthInitialStateType = {
 
 const initialState: AuthInitialStateType = {
    data: null,
-   isAuth: false,
+   isAuth: true,
 }
 
 export const authSlice = createSlice({
@@ -25,3 +25,4 @@ export const authSlice = createSlice({
 
 export const {setUserData} = authSlice.actions;
 export default authSlice.reducer;
+
