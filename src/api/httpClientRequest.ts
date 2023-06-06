@@ -33,7 +33,6 @@ export const profileUsersAPI = {
 export const authAPI = {
    async getAuth() {
       return await instance.get<AuthDataType>('auth/me');
-      // return response.data;
    },
 };
 
