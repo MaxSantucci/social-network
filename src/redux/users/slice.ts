@@ -1,32 +1,6 @@
 import {UsersState, UsersType} from './type';
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {fetchUsers} from './asyncAction';
-import {profileUsersAPI} from '../../api/httpClientRequest';
-import {ProfileUserType} from '../profile/slice';
-
-export const fetchSetFollow = createAsyncThunk<{}, ProfileUserType>(
-   'users/follow', async (params, {dispatch}) => {
-      try {
-         const response = await profileUsersAPI.setFollow(params.userId)
-         dispatch(followUsers(params.userId))
-         return response
-      } catch (e) {
-         throw new Error()
-      }
-   }
-);
-
-export const fetchSetUnfollow = createAsyncThunk<{}, ProfileUserType>(
-   'users/unfollow', async (params, {dispatch}) => {
-      try {
-         const response = await profileUsersAPI.setUnfollow(params.userId)
-         dispatch(unfollowUsers(params.userId))
-         return response
-      } catch (e) {
-         throw new Error()
-      }
-   }
-);
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {fetchSetFollow, fetchSetUnfollow, fetchUsers} from './asyncAction';
 
 const initialState: UsersState = {
    usersPage: {
@@ -37,6 +11,7 @@ const initialState: UsersState = {
    },
    status: 'idle',
    error: null,
+   followingInProgress: []
 }
 
 export const usersSlice = createSlice({
@@ -69,6 +44,14 @@ export const usersSlice = createSlice({
       },
       toggleIsFetching: (state, action: PayloadAction<boolean>) => {
          state.usersPage.isFetching = action.payload
+      },
+      followingInProgress: (state, action: PayloadAction<{userId: number, followingInProgress: boolean}>) => {
+         const {userId, followingInProgress} = action.payload
+         if(followingInProgress) {
+            state.followingInProgress.push(userId)
+         } else {
+            state.followingInProgress = state.followingInProgress.filter(el => el !== userId)
+         }
       }
    },
    extraReducers: (builder) => {
@@ -112,7 +95,7 @@ export const usersSlice = createSlice({
    }
 })
 
-export const {followUsers, unfollowUsers, setCurrentPage, toggleIsFetching} = usersSlice.actions;
+export const {followUsers, unfollowUsers, setCurrentPage, followingInProgress} = usersSlice.actions;
 
 export default usersSlice.reducer;
 

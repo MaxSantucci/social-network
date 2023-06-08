@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../redux/store';
-import {selectTotalCount, selectUsers, selectUsersCurrentPage} from '../../redux/users/selector';
-import {fetchSetFollow, fetchSetUnfollow, followUsers, setCurrentPage, unfollowUsers} from '../../redux/users/slice';
-import {fetchUsers} from '../../redux/users/asyncAction';
+import {useAppDispatch, useAppSelector} from 'redux/store';
+import {selectTotalCount, selectUsers, selectUsersCurrentPage} from 'redux/users/selector';
+import {setCurrentPage} from 'redux/users/slice';
+import {fetchSetFollow, fetchSetUnfollow, fetchUsers} from 'redux/users/asyncAction';
 import {Preloader} from '../common/Preloader/Preloader';
 import Pagination from '@mui/material/Pagination';
 import {NavLink} from 'react-router-dom';
-import avatar from '../../assets/avatar.png';
+import avatar from 'assets/avatar.png';
 
 
 export const Users = () => {

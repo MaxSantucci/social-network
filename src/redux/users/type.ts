@@ -34,6 +34,7 @@ export type UsersState = {
    usersPage: UsersPageType
    status: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null
+   followingInProgress: any[]
 }
 
 export type UsersParams = {
