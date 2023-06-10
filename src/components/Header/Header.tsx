@@ -15,7 +15,7 @@ export const Header = () => {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      const fetchData = async () => {
+      const fetchAuth = async () => {
          try {
             const response = await authAPI.getAuth();
             if (response.data.resultCode === 0) {
@@ -27,7 +27,7 @@ export const Header = () => {
          }
       };
 
-      fetchData().then(r => r);
+      fetchAuth().then(r => r);
    }, [dispatch]);
 
 

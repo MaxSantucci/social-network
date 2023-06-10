@@ -6,6 +6,10 @@ module.exports = {
    ],
    theme: {
       extend: {
+         fontFamily: {
+            'sans': ['Fira Sans', 'sans-serif'],
+            'mono': ['Roboto Mono', 'monospace'],
+         },
          colors: {
             custom: "#29669c",
             black: "#000000",

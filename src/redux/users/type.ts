@@ -1,45 +1,34 @@
-export type LocationUserType = {
-   city: string
-   country: string
-}
-
 export type UsersType = {
-   id: string
+   id: number
    name: string
    followed: boolean
    uniqueUrlName: string
    avatar: string
    status: string
-   // id: string
-   // followed: boolean
-   // avatar: string
-   // firstName: string
-   // lastName: string
-   // position: string
-   // location: LocationUserType
-   // photos: {
-   //    small: string
-   //    large: string
-   // }
 }
 
 export type UsersPageType = {
-   users: UsersType[]
+   items: UsersType[]
    currentPage: number
    isFetching: boolean
    totalCount: number
+   // pageSize: number
 }
 
 export type UsersState = {
    usersPage: UsersPageType
    status: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null
-   followingInProgress: any[]
+   followingInProgress: number[]
 }
 
 export type UsersParams = {
    currentPage: string
+   pageSize: number
 }
 
+export type UserFollowType = {
+   userId: number
+}
 
 

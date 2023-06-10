@@ -1,11 +1,13 @@
-import {UsersState, UsersType} from './type';
+import {UsersPageType, UsersState, UsersType} from './type';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {fetchSetFollow, fetchSetUnfollow, fetchUsers} from './asyncAction';
+import {profileUsersAPI} from '../../api/httpClientRequest';
 
 const initialState: UsersState = {
    usersPage: {
-      users: [],
+      items: [],
       currentPage: 1,
+      // pageSize: 10,
       isFetching: false,
       totalCount: 0
    },
@@ -18,18 +20,18 @@ export const usersSlice = createSlice({
    name: 'users',
    initialState,
    reducers: {
-      followUsers: (state, action: PayloadAction<string>) => {
+      followUsers: (state, action: PayloadAction<number>) => {
          const userId = action.payload
-         state.usersPage.users = state.usersPage.users.map(el => {
+         state.usersPage.items = state.usersPage.items.map(el => {
             if (el.id === userId) {
                return {...el, followed: true}
             }
             return el
          })
       },
-      unfollowUsers: (state, action: PayloadAction<string>) => {
+      unfollowUsers: (state, action: PayloadAction<number>) => {
          const userId = action.payload
-         state.usersPage.users = state.usersPage.users.map(el => {
+         state.usersPage.items = state.usersPage.items.map(el => {
             if (el.id === userId) {
                return {...el, followed: false}
             }
@@ -37,7 +39,7 @@ export const usersSlice = createSlice({
          })
       },
       setUsers: (state, action: PayloadAction<UsersType[]>) => {
-         state.usersPage.users = action.payload
+         state.usersPage.items = action.payload
       },
       setCurrentPage: (state, action: PayloadAction<number>) => {
          state.usersPage.currentPage = action.payload;
@@ -45,57 +47,79 @@ export const usersSlice = createSlice({
       toggleIsFetching: (state, action: PayloadAction<boolean>) => {
          state.usersPage.isFetching = action.payload
       },
-      followingInProgress: (state, action: PayloadAction<{userId: number, followingInProgress: boolean}>) => {
+      followingInProgress: (state, action: PayloadAction<{ userId: number, followingInProgress: boolean }>) => {
          const {userId, followingInProgress} = action.payload
          if(followingInProgress) {
             state.followingInProgress.push(userId)
          } else {
             state.followingInProgress = state.followingInProgress.filter(el => el !== userId)
          }
-      }
+      },
    },
    extraReducers: (builder) => {
       builder
-         .addCase(fetchUsers.pending, (state) => {
-            state.usersPage.isFetching = true
-         })
-         .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<{ items: UsersType[], totalCount: number }>) => {
+         // .addCase(fetchUsers.pending, (state) => {
+         //    state.usersPage.isFetching = true
+         // })
+         .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<UsersPageType>) => {
             state.status = 'succeeded';
-            state.usersPage.users = action.payload.items;
+            state.usersPage.items = action.payload.items;
             state.usersPage.totalCount = action.payload.totalCount
-            state.usersPage.isFetching = false
+            // state.usersPage.isFetching = false
          })
          .addCase(fetchUsers.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message ?? 'Something went wrong';
-            state.usersPage.isFetching = false
+            // state.usersPage.isFetching = false
          })
          .addCase(fetchSetFollow.pending, (state) => {
             state.status = 'loading';
             state.error = null;
+            // state.usersPage.isFetching = true
          })
-         .addCase(fetchSetFollow.fulfilled, (state) => {
+         .addCase(fetchSetFollow.fulfilled, (state, action) => {
             state.status = 'succeeded';
+            // state.usersPage.isFetching = false
+            state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          })
          .addCase(fetchSetFollow.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message ?? 'Something went wrong';
+            // state.usersPage.isFetching = false
+            state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          })
          .addCase(fetchSetUnfollow.pending, (state) => {
             state.status = 'loading';
             state.error = null;
+            // state.usersPage.isFetching = true
          })
-         .addCase(fetchSetUnfollow.fulfilled, (state) => {
+         .addCase(fetchSetUnfollow.fulfilled, (state, action) => {
             state.status = 'succeeded';
+            // state.usersPage.isFetching = false
+            state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          })
          .addCase(fetchSetUnfollow.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message ?? 'Something went wrong';
+            // state.usersPage.isFetching = false
+            state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          });
    }
 })
 
-export const {followUsers, unfollowUsers, setCurrentPage, followingInProgress} = usersSlice.actions;
+export const {followUsers, unfollowUsers, setCurrentPage, toggleIsFetching, followingInProgress} = usersSlice.actions;
+
+export const fetchProfileUser = async () => {
+   try {
+      const response = await profileUsersAPI.getUserProfile();
+      return response.data
+   } catch (error) {
+      console.error(error);
+   }
+};
+// if (userId) {
+//    fetchProfileUsers(userId).then(r => r);
+// }
 
 export default usersSlice.reducer;
 

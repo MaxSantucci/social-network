@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {UsersType} from '../redux/users/type';
+import {UsersPageType} from '../redux/users/type';
 import {ProfileUsersType} from '../redux/profile/type';
 import {AuthDataType} from '../redux/auth/types';
 
@@ -12,8 +12,8 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-   async getUsers(currentPage: string) {
-      const {data} = await instance.get<{items: UsersType[], totalCount: number}>(`users?page=${currentPage}&limit=10`);
+   async getUsers(currentPage: string, pageSize = 10) {
+      const {data} = await instance.get<UsersPageType>(`users?page=${currentPage}&count=${pageSize}`);
       return data
    }
 }
@@ -22,10 +22,10 @@ export const profileUsersAPI = {
    async getUserProfile(userId: string) {
       return await instance.get<ProfileUsersType>(`profile/${userId}`)
    },
-   async setFollow(userId: string) {
+   async setFollow(userId: number) {
       return await instance.post(`follow/${userId}`)
    },
-   async setUnfollow(userId: string) {
+   async setUnfollow(userId: number) {
       return await instance.delete(`follow/${userId}`)
    }
 }

@@ -5,3 +5,5 @@ export const selectUsers = (state: RootState) => state.users.usersPage;
 export const selectUsersCurrentPage = (state: RootState) => state.users.usersPage.currentPage;
 
 export const selectTotalCount = (state: RootState) => state.users.usersPage.totalCount;
+
+export const selectFollowingInProgress = (state: RootState) => state.users.followingInProgress

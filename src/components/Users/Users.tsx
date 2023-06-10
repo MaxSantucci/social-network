@@ -1,33 +1,38 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from 'redux/store';
-import {selectTotalCount, selectUsers, selectUsersCurrentPage} from 'redux/users/selector';
-import {setCurrentPage} from 'redux/users/slice';
+import {selectFollowingInProgress, selectTotalCount, selectUsers, selectUsersCurrentPage} from 'redux/users/selector';
+import {followingInProgress, setCurrentPage} from 'redux/users/slice';
 import {fetchSetFollow, fetchSetUnfollow, fetchUsers} from 'redux/users/asyncAction';
 import {Preloader} from '../common/Preloader/Preloader';
 import Pagination from '@mui/material/Pagination';
 import {NavLink} from 'react-router-dom';
 import avatar from 'assets/avatar.png';
+import {useSelector} from 'react-redux';
 
 
 export const Users = () => {
+   // const followingInProgress = useSelector(state => state.user.);
 
    const dispatch = useAppDispatch()
    const users = useAppSelector(selectUsers);
    const currentPage = useAppSelector(selectUsersCurrentPage)
    const totalCount = useAppSelector(selectTotalCount)
+   const following = useAppSelector(selectFollowingInProgress)
 
+   const pageSize = 10;
    useEffect(() => {
       dispatch(fetchUsers({
-         currentPage: String(currentPage)
+         currentPage: String(currentPage),
+         pageSize
       }))
    }, [currentPage, dispatch])
 
-   const followButtonHandler = (id: string) => {
-      dispatch(fetchSetFollow({ userId: id }))
+   const followButtonHandler = (id: number) => {
+      dispatch(fetchSetFollow({userId: id}))
    }
 
-   const unfollowButtonHandler = (id: string) => {
-      dispatch(fetchSetUnfollow({ userId: id }))
+   const unfollowButtonHandler = (id: number) => {
+      dispatch(fetchSetUnfollow({userId: id}))
    }
 
    const onChangePage = (page: number) => {
@@ -39,7 +44,7 @@ export const Users = () => {
    return (
       <div>
          {users.isFetching ? <Preloader/> : <div>
-            {users.users.map(u => {
+            {users.items.map(u => {
                return <div key={u.id} className="flex justify-between items-center mb-2">
                   <NavLink to={`/profileUser/${u.id}`}>
                      <div className="flex items-center">
@@ -52,10 +57,25 @@ export const Users = () => {
                   </NavLink>
                   <div className="pr-5">
                      <div
-                        className='w-24 flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-800"'>{u.followed
-                        ? <button onClick={() => unfollowButtonHandler(u.id)}>Unfollow</button>
-                        : <button onClick={() => followButtonHandler(u.id)}>Follow</button>
-                     }</div>
+                        className='w-24 flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-800"'>
+                        {u.followed ? (
+                           <button
+                              disabled={following.some(id => id === u.id)}
+                              onClick={() => unfollowButtonHandler(u.id)}
+                              // className={followingInProgress ? 'bg-black' : ''}
+                           >
+                              Unfollow
+                           </button>
+                        ) : (
+                           <button
+                              disabled={following.some(id => id === u.id)}
+                              onClick={() => followButtonHandler(u.id)}
+                              // className={following ? 'bg-active' : ''}
+                           >
+                              Follow
+                           </button>
+                        )}
+                     </div>
                   </div>
                </div>
             })}
