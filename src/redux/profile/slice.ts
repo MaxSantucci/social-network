@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {PostsType, ProfileState} from './type';
+import {PostsType, ProfileState, ProfileUsersType} from './type';
 
 const initialState: ProfileState = {
    profilePage: {
@@ -54,6 +54,9 @@ const profileSlice = createSlice({
       toggleIsFetching: (state, action: PayloadAction<boolean>) => {
          state.isFetching = action.payload
       },
+      setUserProfile: (state, action: PayloadAction<ProfileUsersType>) => {
+         state.profileData = action.payload;
+      },
    },
    extraReducers: (builder) => {
       // builder
@@ -74,7 +77,7 @@ const profileSlice = createSlice({
    }
 })
 
-export const { addPost, deletePost }  = profileSlice.actions
+export const { addPost, deletePost, toggleIsFetching, setUserProfile }  = profileSlice.actions
 
 export default profileSlice.reducer;
 

@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {authAPI} from '../../api/httpClientRequest';
 import {setUserData} from './slice';
 
-export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params, {dispatch}) => {
+export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params, { dispatch }) => {
    try {
       const response = await authAPI.getAuth();
       if (response.data.resultCode === 0) {

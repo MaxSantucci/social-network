@@ -11,6 +11,7 @@ import {Error} from './components/Error/Error';
 import ChatContainer from './components/Dialogs/Chat/ChatContainer';
 import {Users} from './components/Users/Users';
 import {ProfileUser} from './components/ProfileUser/ProfileUser';
+import {Login} from './components/Login/Login';
 
 function App() {
    return (
@@ -30,6 +31,7 @@ function App() {
                   </Route>
                   <Route path="/users" element={<Users/>}/>
                   <Route path="/news" element={<News/>}/>
+                  <Route path="/login" element={<Login/>}/>
                   <Route path="/*" element={<Error/>}/>
                </Routes>
             </div>

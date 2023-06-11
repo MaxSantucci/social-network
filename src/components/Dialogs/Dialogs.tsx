@@ -1,14 +1,16 @@
 import Reactи from 'react';
-import {Outlet, useParams} from 'react-router-dom';
+import {Navigate, Outlet, useParams} from 'react-router-dom';
 import {DialogsItem} from './DialogsItem/DialogsItem';
 import {useSelector} from 'react-redux';
 import {selectDialogs} from 'redux/dialogs/selectors';
 import {useAppSelector} from '../../redux/store';
+import {selectIsAuth} from '../../redux/auth/selector';
 
 export const Dialogs = () => {
    let {userId} = useParams()
 
    const dialogs = useAppSelector(selectDialogs)
+   const isAuth = useAppSelector(selectIsAuth)
 
    let dialogsElements = dialogs.map((el) => {
       return (
@@ -19,6 +21,8 @@ export const Dialogs = () => {
          />
       )
    })
+
+   if(!isAuth) return <Navigate to='/login'/>
 
    return (
       <div className="grid grid-cols-12">

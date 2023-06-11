@@ -1,33 +1,18 @@
 import React, { useEffect } from 'react';
 import logo from '../../assets/logo.png';
 import { NavLink } from 'react-router-dom';
-// import { authAPI } from '../../api/httpClientRequest';
-import { useAppSelector } from '../../redux/store';
+import {AppDispatch, useAppDispatch, useAppSelector} from '../../redux/store';
 import {selectAuthLogin, selectIsAuth} from '../../redux/auth/selector';
-import { useDispatch } from 'react-redux';
-import { setUserData } from '../../redux/auth/slice';
-import {authAPI} from '../../api/httpClientRequest';
+import {fetchAuth} from '../../redux/auth/asyncAction';
 
 export const Header = () => {
    const isAuth = useAppSelector(selectIsAuth);
    const userLogin = useAppSelector(selectAuthLogin);
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
    useEffect(() => {
-      const fetchAuth = async () => {
-         try {
-            const response = await authAPI.getAuth();
-            if (response.data.resultCode === 0) {
-               const { id, login, email } = response.data.data;
-               dispatch(setUserData({id, login, email}));
-            }
-         } catch (error) {
-            console.log(error);
-         }
-      };
-
-      fetchAuth().then(r => r);
+      dispatch(fetchAuth())
    }, [dispatch]);
 
 
@@ -47,3 +32,18 @@ export const Header = () => {
       </header>
    );
 };
+
+
+// const fetchAuth = async () => {
+//    try {
+//       const response = await authAPI.getAuth();
+//       if (response.data.resultCode === 0) {
+//          const { id, login, email } = response.data.data;
+//          dispatch(setUserData({id, login, email}));
+//       }
+//    } catch (error) {
+//       console.log(error);
+//    }
+// };
+//
+// fetchAuth().then(r => r);

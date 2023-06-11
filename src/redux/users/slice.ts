@@ -109,18 +109,6 @@ export const usersSlice = createSlice({
 
 export const {followUsers, unfollowUsers, setCurrentPage, toggleIsFetching, followingInProgress} = usersSlice.actions;
 
-export const fetchProfileUser = async () => {
-   try {
-      const response = await profileUsersAPI.getUserProfile();
-      return response.data
-   } catch (error) {
-      console.error(error);
-   }
-};
-// if (userId) {
-//    fetchProfileUsers(userId).then(r => r);
-// }
-
 export default usersSlice.reducer;
 
 

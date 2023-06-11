@@ -19,7 +19,7 @@ export const usersAPI = {
 }
 
 export const profileUsersAPI = {
-   async getUserProfile(userId: string) {
+   async getUserProfile(userId: string | undefined) {
       return await instance.get<ProfileUsersType>(`profile/${userId}`)
    },
    async setFollow(userId: number) {
