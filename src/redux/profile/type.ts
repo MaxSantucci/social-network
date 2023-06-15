@@ -33,13 +33,18 @@ export type ProfileUsersType = {
 export type ProfileState = {
    profilePage: ProfilePageType
    profileData: ProfileUsersType
-   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+   statusLoading: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null
    isFetching: boolean
+   status: string
 }
 
 export type ProfileParams = {
    userId: string | undefined
+}
+
+export type StatusParams = {
+   status: string
 }
 
 

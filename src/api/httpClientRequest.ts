@@ -15,6 +15,12 @@ export const usersAPI = {
    async getUsers(currentPage: string, pageSize = 10) {
       const {data} = await instance.get<UsersPageType>(`users?page=${currentPage}&count=${pageSize}`);
       return data
+   },
+   async setFollow(userId: number) {
+      return await instance.post(`follow/${userId}`)
+   },
+   async setUnfollow(userId: number) {
+      return await instance.delete(`follow/${userId}`)
    }
 }
 
@@ -22,11 +28,11 @@ export const profileUsersAPI = {
    async getUserProfile(userId: string | undefined) {
       return await instance.get<ProfileUsersType>(`profile/${userId}`)
    },
-   async setFollow(userId: number) {
-      return await instance.post(`follow/${userId}`)
+   async getStatus(userId: string | undefined) {
+      return await instance.get(`profile/status/${userId}`)
    },
-   async setUnfollow(userId: number) {
-      return await instance.delete(`follow/${userId}`)
+   async updateStatus(status: string | undefined) {
+      return await instance.put(`profile/status/`, {status})
    }
 }
 

@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {UserFollowType, UsersPageType, UsersParams} from './type';
-import {profileUsersAPI, usersAPI} from '../../api/httpClientRequest';
+import {usersAPI} from '../../api/httpClientRequest';
 import {followingInProgress, followUsers, toggleIsFetching, unfollowUsers} from './slice';
 import {AxiosResponse} from 'axios';
 
@@ -20,7 +20,7 @@ export const fetchSetFollow = createAsyncThunk<{}, UserFollowType>(
    'users/follow', async (params, { dispatch }) => {
       dispatch(followingInProgress({ userId: params.userId, followingInProgress: true }));
       try {
-         const response: AxiosResponse<any, any> = await profileUsersAPI.setFollow(params.userId);
+         const response: AxiosResponse<any, any> = await usersAPI.setFollow(params.userId);
          dispatch(followUsers(params.userId));
          dispatch(followingInProgress({ userId: params.userId, followingInProgress: false }));
          return response.data;
@@ -34,7 +34,7 @@ export const fetchSetUnfollow = createAsyncThunk<{}, UserFollowType>(
    'users/unfollow', async (params, {dispatch}) => {
       dispatch(followingInProgress({ userId: params.userId, followingInProgress: true }));
       try {
-         const response: AxiosResponse<any, any> = await profileUsersAPI.setUnfollow(params.userId)
+         const response: AxiosResponse<any, any> = await usersAPI.setUnfollow(params.userId)
          dispatch(unfollowUsers(params.userId))
          dispatch(followingInProgress({ userId: params.userId, followingInProgress: false }));
          return response.data

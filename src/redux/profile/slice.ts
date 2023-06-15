@@ -30,9 +30,10 @@ const initialState: ProfileState = {
          large: '',
       }
    },
-   status: 'idle',
+   statusLoading: 'idle',
    error: null,
-   isFetching: false
+   isFetching: false,
+   status: ''
 }
 
 const profileSlice = createSlice({
@@ -57,6 +58,9 @@ const profileSlice = createSlice({
       setUserProfile: (state, action: PayloadAction<ProfileUsersType>) => {
          state.profileData = action.payload;
       },
+      setStatusProfile: (state, action: PayloadAction<string>) => {
+         state.status = action.payload
+      }
    },
    extraReducers: (builder) => {
       // builder
@@ -77,7 +81,7 @@ const profileSlice = createSlice({
    }
 })
 
-export const { addPost, deletePost, toggleIsFetching, setUserProfile }  = profileSlice.actions
+export const { addPost, deletePost, setStatusProfile, toggleIsFetching, setUserProfile }  = profileSlice.actions
 
 export default profileSlice.reducer;
 

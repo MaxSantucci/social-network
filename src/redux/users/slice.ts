@@ -58,50 +58,39 @@ export const usersSlice = createSlice({
    },
    extraReducers: (builder) => {
       builder
-         // .addCase(fetchUsers.pending, (state) => {
-         //    state.usersPage.isFetching = true
-         // })
          .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<UsersPageType>) => {
             state.status = 'succeeded';
             state.usersPage.items = action.payload.items;
             state.usersPage.totalCount = action.payload.totalCount
-            // state.usersPage.isFetching = false
          })
          .addCase(fetchUsers.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message ?? 'Something went wrong';
-            // state.usersPage.isFetching = false
          })
          .addCase(fetchSetFollow.pending, (state) => {
             state.status = 'loading';
             state.error = null;
-            // state.usersPage.isFetching = true
          })
          .addCase(fetchSetFollow.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            // state.usersPage.isFetching = false
             state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          })
          .addCase(fetchSetFollow.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message ?? 'Something went wrong';
-            // state.usersPage.isFetching = false
             state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          })
          .addCase(fetchSetUnfollow.pending, (state) => {
             state.status = 'loading';
             state.error = null;
-            // state.usersPage.isFetching = true
          })
          .addCase(fetchSetUnfollow.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            // state.usersPage.isFetching = false
             state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          })
          .addCase(fetchSetUnfollow.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message ?? 'Something went wrong';
-            // state.usersPage.isFetching = false
             state.followingInProgress = state.followingInProgress.filter(el => el !== action.meta.arg.userId)
          });
    }
