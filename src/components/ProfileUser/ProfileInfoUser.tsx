@@ -1,42 +1,103 @@
 import React, {useEffect} from 'react';
 import avatar from '../../assets/avatar.png';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { selectProfileUsers } from '../../redux/profile/selectors';
-import {fetchProfileUsers} from '../../redux/profile/asyncAction';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
+import {
+   selectProfileUsers,
+   selectStatusProfile
+} from '../../redux/profile/selectors';
+import {
+   fetchProfileUsers,
+   fetchStatusProfile
+} from '../../redux/profile/asyncAction';
 import {useParams} from 'react-router-dom';
 
 export const ProfileInfoUser = () => {
-   const { userId } = useParams<{ userId: string }>();
+   const {userId} = useParams<{ userId: string }>();
    const dispatch = useAppDispatch();
    const profileData = useAppSelector(selectProfileUsers);
+   const status = useAppSelector(selectStatusProfile)
 
 
    useEffect(() => {
       dispatch(fetchProfileUsers({userId}))
+      dispatch(fetchStatusProfile({userId}))
    }, [userId, dispatch]);
 
    return (
       <div>
-         <img className="w-100 h-100" src={avatar} alt="avatar" />
-
-         <div className="text-2xl text-black mt-5">{profileData.fullName}</div>
-
-         <div className="text-black mt-5">
-            Actively looking for jobs: {profileData.lookingForAJob}
+         <div className="flex">
+            <div>
+               <img className="w-100 h-120" src={avatar} alt="avatar"/>
+            </div>
+            <div className="ml-4">
+               <div className="text-2xl text-black">{profileData.fullName}</div>
+               <div className="text-xs text-black h-4">{status}</div>
+               <div className="text-sm text-black mt-2">
+                  Actively looking for jobs: {profileData.lookingForAJob}
+               </div>
+               <div className="text-sm text-black">
+                  Description of desired
+                  job: {profileData.lookingForAJobDescription}
+               </div>
+               <div className="text-sm text-black mt-2">About
+                  me: {profileData.aboutMe}</div>
+            </div>
          </div>
-         <div className="text-black">
-            Description of desired job: {profileData.lookingForAJobDescription}
+         <div className="mt-5">Contact info:</div>
+         <div className="text-gray-900 flex">Facebook:
+            <a
+               href={profileData.contacts.facebook}
+               className="text-black font-normal ml-2"
+               target="_blank"
+            >
+               {profileData.contacts.facebook}
+            </a>
          </div>
-
-         <div className="text-black mt-5">About me: {profileData.aboutMe}</div>
-
-         <div className="mt-5">Contacts</div>
-         <div className="text-black">Facebook: {profileData.contacts.facebook}</div>
-         <div className="text-black">Website: {profileData.contacts.website}</div>
-         <div className="text-black">Twitter: {profileData.contacts.twitter}</div>
-         <div className="text-black">Instagram: {profileData.contacts.instagram}</div>
-         <div className="text-black">Youtube: {profileData.contacts.youtube}</div>
-         <div className="text-black">Github: {profileData.contacts.github}</div>
+         <div className="text-black">Website:
+            <a
+               href={profileData.contacts.website}
+               className="text-black font-normal ml-2"
+               target="_blank"
+            >
+               {profileData.contacts.website}
+            </a>
+         </div>
+         <div className="text-black">Twitter:
+            <a
+               href={profileData.contacts.twitter}
+               className="text-black font-normal ml-2"
+               target="_blank"
+            >
+               {profileData.contacts.twitter}
+            </a>
+         </div>
+         <div className="text-black">Instagram:
+            <a
+               href={profileData.contacts.instagram}
+               className="text-black font-normal ml-2"
+               target="_blank"
+            >
+               {profileData.contacts.instagram}
+            </a>
+         </div>
+         <div className="text-black">Youtube:
+            <a
+               href={profileData.contacts.youtube}
+               className="text-black font-normal ml-2"
+               target="_blank"
+            >
+               {profileData.contacts.youtube}
+            </a>
+         </div>
+         <div className="text-black">Github:
+            <a
+               href={profileData.contacts.github}
+               className="text-black font-normal ml-2"
+               target="_blank"
+            >
+               {profileData.contacts.github}
+            </a>
+         </div>
       </div>
    );
 };

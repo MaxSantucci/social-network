@@ -58,7 +58,10 @@ const profileSlice = createSlice({
       setUserProfile: (state, action: PayloadAction<ProfileUsersType>) => {
          state.profileData = action.payload;
       },
-      setStatusProfile: (state, action: PayloadAction<string>) => {
+      setStatusProfile: (state, action: PayloadAction<string | undefined>) => {
+         state.status = action.payload
+      },
+      setUpdateStatusProfile: (state, action: PayloadAction<string>) => {
          state.status = action.payload
       }
    },
@@ -81,7 +84,7 @@ const profileSlice = createSlice({
    }
 })
 
-export const { addPost, deletePost, setStatusProfile, toggleIsFetching, setUserProfile }  = profileSlice.actions
+export const { addPost, deletePost, setStatusProfile, setUpdateStatusProfile, setUserProfile }  = profileSlice.actions
 
 export default profileSlice.reducer;
 

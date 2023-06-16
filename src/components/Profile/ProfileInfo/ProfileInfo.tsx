@@ -6,15 +6,12 @@ import {selectStatusProfile} from '../../../redux/profile/selectors';
 
 export const ProfileInfo = () => {
 
-   const dispatch = useAppDispatch()
-   const status = useAppSelector(selectStatusProfile)
-
-
-
    return (
       <div className='p-2.5'>
          <img className='w-50 h-20' src={avatar} alt="avatar"/>
-         <ProfileStatus status={status}/>
+         <ProfileStatus
+            // status='Hi'
+         />
       </div>
    );
 };

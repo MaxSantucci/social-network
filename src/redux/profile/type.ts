@@ -36,7 +36,7 @@ export type ProfileState = {
    statusLoading: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null
    isFetching: boolean
-   status: string
+   status: string | undefined
 }
 
 export type ProfileParams = {
@@ -44,7 +44,7 @@ export type ProfileParams = {
 }
 
 export type StatusParams = {
-   status: string
+   status: string | undefined
 }
 
 

@@ -31,8 +31,8 @@ export const profileUsersAPI = {
    async getStatus(userId: string | undefined) {
       return await instance.get(`profile/status/${userId}`)
    },
-   async updateStatus(status: string | undefined) {
-      return await instance.put(`profile/status/`, {status})
+   async updateStatus(status: string) {
+      return await instance.put(`profile/status`, {status: status})
    }
 }
 
