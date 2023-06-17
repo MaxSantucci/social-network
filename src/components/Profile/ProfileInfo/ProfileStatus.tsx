@@ -1,13 +1,15 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
 import {selectStatusProfile} from '../../../redux/profile/selectors';
-import {fetchUpdateStatus} from '../../../redux/profile/asyncAction';
+import {
+   fetchProfileUsers,
+   fetchStatusProfile,
+   fetchUpdateStatus
+} from '../../../redux/profile/asyncAction';
+import {useParams} from 'react-router-dom';
 
-type ProfileStatusProps = {
-   // status: string
-}
-
-export const ProfileStatus: React.FC<ProfileStatusProps> = () => {
+export const ProfileStatus = () => {
+   const {userId} = useParams<{ userId: string }>();
    const dispatch = useAppDispatch()
    const status = useAppSelector(selectStatusProfile) || ''
 
@@ -15,9 +17,8 @@ export const ProfileStatus: React.FC<ProfileStatusProps> = () => {
    const [newStatus, setNewStatus] = useState<string>(status)
 
    useEffect(() => {
-      if (status !== newStatus) {
-         setNewStatus(status)
-      }
+      dispatch(fetchProfileUsers({userId}))
+      dispatch(fetchStatusProfile({userId}))
    }, [status])
 
    const activateEditModeHandler = () => {
@@ -36,8 +37,7 @@ export const ProfileStatus: React.FC<ProfileStatusProps> = () => {
    return (
       <div>
          {editMode
-            ?
-            <div>
+            ? <div>
                <input
                   value={newStatus}
                   onChange={onChangeStatusHandler}
@@ -48,6 +48,7 @@ export const ProfileStatus: React.FC<ProfileStatusProps> = () => {
             : <div>
                <span
                   onDoubleClick={activateEditModeHandler}
+
                >{status ? ' ' + status : ' -'}</span>
             </div>
          }

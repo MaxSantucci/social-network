@@ -65,23 +65,6 @@ const profileSlice = createSlice({
          state.status = action.payload
       }
    },
-   extraReducers: (builder) => {
-      // builder
-      //    .addCase(fetchProfileUsers.pending, (state) => {
-      //       state.status = 'loading';
-      //       state.error = null;
-      //       state.isFetching = true; // Uncomment this line
-      //    })
-      //    .addCase(fetchProfileUsers.fulfilled, (state, action: PayloadAction) => {
-      //       state.status = 'succeeded';
-      //       state.isFetching = false; // Uncomment this line
-      //    })
-      //    .addCase(fetchProfileUsers.rejected, (state, action) => {
-      //       state.status = 'failed';
-      //       state.error = action.error.message ?? 'Something went wrong';
-      //       state.isFetching = false; // Uncomment this line
-      //    })
-   }
 })
 
 export const { addPost, deletePost, setStatusProfile, setUpdateStatusProfile, setUserProfile }  = profileSlice.actions

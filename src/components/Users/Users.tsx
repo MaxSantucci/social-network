@@ -68,7 +68,6 @@ export const Users = () => {
                            <button
                               disabled={following.some(id => id === u.id)}
                               onClick={() => unfollowButtonHandler(u.id)}
-                              // className={followingInProgress ? 'bg-black' : ''}
                            >
                               Unfollow
                            </button>
@@ -76,7 +75,6 @@ export const Users = () => {
                            <button
                               disabled={following.some(id => id === u.id)}
                               onClick={() => followButtonHandler(u.id)}
-                              // className={following ? 'bg-active' : ''}
                            >
                               Follow
                            </button>

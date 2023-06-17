@@ -23,7 +23,7 @@ function App() {
             <Navbar/>
             <div className="bg-gray-100 text-custom" style={{gridArea: 'c'}}>
                <Routes>
-                  <Route path="/social-network" element={<Navigate to="/profile" />}/>
+                  {/*<Route path="/social-network/profile" element={<Navigate to="/profile" />}/>*/}
                   <Route path="/profile" element={<Profile/>}/>
                   <Route path="/profileUser/:userId" element={<ProfileUser/>}/>
                   <Route path="/dialogs" element={<Dialogs/>}>

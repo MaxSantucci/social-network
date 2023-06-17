@@ -3,21 +3,17 @@ import avatar from "assets/avatar.png";
 import {useAppDispatch} from '../../../../redux/store';
 import {deletePost} from '../../../../redux/profile/slice';
 
-
-
 type TypePropsPost = {
    id: string
    message: string,
    likesCount: number
 }
 
-
 export const Post = (props: TypePropsPost) => {
    const [count, setCount] = useState<number>(0)
    const [isLiked, setIsLiked] = useState<boolean>(false)
 
    const dispatch = useAppDispatch()
-   // const profilePage = useSelector(selectPosts)
 
    const onClickLikeHandler = () => {
       setCount(count === 0 ? 1 : count - 1)

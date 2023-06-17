@@ -1,6 +1,6 @@
 import {profileUsersAPI} from '../../api/httpClientRequest';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ProfileParams, StatusParams} from './type';
+import {ProfileParams} from './type';
 import {
    setStatusProfile,
    setUpdateStatusProfile,

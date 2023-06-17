@@ -10,6 +10,12 @@ export type AuthDataType = {
    resultCode: number
 }
 
+export type LoginType = {
+   email?: string
+   password?: string
+   rememberMe?: boolean
+}
+
 
 
 
