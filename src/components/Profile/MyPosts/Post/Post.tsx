@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import avatar from "assets/avatar.png";
-import {useAppDispatch} from '../../../../redux/store';
-import {deletePost} from '../../../../redux/profile/slice';
+import {useAppDispatch} from 'redux/store';
+import {deletePost} from 'redux/profile/slice';
 
 type TypePropsPost = {
    id: string
@@ -27,7 +27,7 @@ export const Post = (props: TypePropsPost) => {
    const buttonPost = `bg-blue-600 text-white rounded w-16 h-6 ${isLiked ? 'bg-blue-900' : ''}`
 
    return (
-      <div>
+      <div className='flex flex-col items-center pt-2'>
          <img className='w-30 h-10 rounded-2xl' src={avatar} alt="avatar"/>
          {props.message}
          <div>

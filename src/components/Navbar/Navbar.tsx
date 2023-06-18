@@ -21,7 +21,7 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
       <div className="bg-gray-200 text-custom p-3 text-2xl w-30"
            style={{gridArea: 'n'}}>
          <div className="flex">
-            <div className="flex justify-center mr-1">
+            <div className="flex justify-center mr-3">
                <FontAwesomeIcon icon={faUser}/>
             </div>
             <div>
@@ -29,7 +29,7 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
             </div>
          </div>
          <div className="flex">
-            <div className="flex justify-center mr-1">
+            <div className="flex justify-center mr-2.5">
                <FontAwesomeIcon icon={faEnvelope}/>
             </div>
             <div>
@@ -45,7 +45,7 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
             </div>
          </div>
          <div className="flex">
-            <div className="flex justify-center mr-1">
+            <div className="flex justify-center mr-2.5">
                <FontAwesomeIcon icon={faNewspaper}/>
             </div>
             <div>
@@ -53,7 +53,7 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
             </div>
          </div>
          <div className="flex">
-            <div className="flex justify-center mr-1">
+            <div className="flex justify-center mr-3">
                <FontAwesomeIcon icon={faMusic}/>
             </div>
             <div>
@@ -61,7 +61,7 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
             </div>
          </div>
          <div className="flex">
-            <div className="flex justify-center mr-1">
+            <div className="flex justify-center mr-3">
                <FontAwesomeIcon icon={faGear}/>
             </div>
             <div>

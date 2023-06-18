@@ -1,17 +1,19 @@
 import React from 'react';
 import {
-   Button, Checkbox,
-   FormControl, FormControlLabel,
+   Button,
+   Checkbox,
+   FormControl,
+   FormControlLabel,
    FormGroup,
    FormLabel,
    Grid,
    TextField
 } from '@mui/material';
-import {useAppDispatch, useAppSelector} from '../../redux/store';
-import {useFormik} from 'formik';
-import {fetchAuth, fetchLoginAuth} from '../../redux/auth/asyncAction';
-import {selectIsAuth} from '../../redux/auth/selector';
+import {useAppDispatch, useAppSelector} from 'redux/store';
+import {fetchLoginAuth} from 'redux/auth/asyncAction';
+import {SubmitHandler, useForm} from 'react-hook-form';
 import {Navigate} from 'react-router-dom';
+import {selectIsAuth} from 'redux/auth/selector';
 
 type FormikErrorType = {
    email?: string
@@ -21,40 +23,26 @@ type FormikErrorType = {
 
 export const Login = () => {
    const dispatch = useAppDispatch()
-   // const isAuth = useAppSelector(selectIsAuth)
+   const isAuth = useAppSelector(selectIsAuth)
 
-   const formik = useFormik({
-      initialValues: {
+   const {
+      register,
+      handleSubmit,
+      formState: {errors}
+   } = useForm<FormikErrorType>({
+      defaultValues: {
          email: '',
          password: '',
          rememberMe: false
-      },
-      validate: (values) => {
-         const errors: FormikErrorType = {}
-
-         if (!values.email) {
-            errors.email = 'Required'
-         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-            errors.email = 'Invalid email address'
-         }
-
-         if (!values.password) {
-            errors.password = 'Required'
-         } else if (values.password?.trim()?.length < 3) {
-            errors.email = 'Should be more then three symbols'
-         }
-
-         return errors
-      },
-      onSubmit: values => {
-         dispatch(fetchLoginAuth(values))
-         formik.resetForm()
-      },
+      }
    })
 
-   // if(isAuth) {
-   //    return <Navigate to='/'/>
-   // }
+   const onSubmit: SubmitHandler<FormikErrorType> = (data) => {
+      dispatch(fetchLoginAuth({...data}))
+   }
+
+   if (isAuth) return <Navigate to="/profile"/>
+
 
    return <Grid container justifyContent={'center'}>
       <Grid item justifyContent={'center'}>
@@ -69,27 +57,38 @@ export const Login = () => {
                <p>Email: free@samuraijs.com</p>
                <p>Password: free</p>
             </FormLabel>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                <FormGroup>
                   <TextField
                      label="Email"
                      margin="normal"
-                     {...formik.getFieldProps('email')}
+                     {...register('email', {
+                        required: true,
+                        pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+                     })}
                   />
-                  {formik.errors.email &&
-                     <div style={{color: 'red'}}> {formik.errors.email} </div>}
+                  {errors.email?.type === 'required' &&
+                     <div style={{color: 'red'}}>Email is required </div>}
+                  {errors.email?.type === 'pattern' &&
+                     <div style={{color: 'red'}}>Invalid email address </div>}
                   <TextField
                      type="password"
                      label="Password"
                      margin="normal"
-                     {...formik.getFieldProps('password')}
+                     {...register('password', {
+                        required: true,
+                        minLength: 3
+                     })}
                   />
-                  {formik.errors.password && <div
-                     style={{color: 'red'}}> {formik.errors.password} </div>}
+                  {errors.password?.type === 'required' &&
+                     <div style={{color: 'red'}}>Password is required </div>}
+                  {errors.password?.type === 'minLength' &&
+                     <div style={{color: 'red'}}>Should be more then three
+                        symbols </div>}
                   <FormControlLabel label={'Remember me'} control={
                      <Checkbox
-                        checked={formik.values.rememberMe}
-                        {...formik.getFieldProps('rememberMe')}
+                        // checked={formik.values.rememberMe}
+                        {...register('rememberMe')}
                      />
                   }/>
                   <Button type={'submit'} variant={'contained'}

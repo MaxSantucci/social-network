@@ -2,15 +2,17 @@ import React from 'react';
 import {Navigate, Outlet, useParams} from 'react-router-dom';
 import {DialogsItem} from './DialogsItem/DialogsItem';
 import {selectDialogs} from 'redux/dialogs/selectors';
-import {useAppSelector} from '../../redux/store';
-import {selectIsAuth} from '../../redux/auth/selector';
+import {useAppSelector} from 'redux/store';
+import {selectIsAuth} from 'redux/auth/selector';
 
 export const Dialogs = () => {
+
    let {userId} = useParams()
 
    const dialogs = useAppSelector(selectDialogs)
    const isAuth = useAppSelector(selectIsAuth)
 
+   console.log(isAuth)
    let dialogsElements = dialogs.map((el) => {
       return (
          <DialogsItem
@@ -21,7 +23,7 @@ export const Dialogs = () => {
       )
    })
 
-   if(!isAuth) return <Navigate to='/login'/>
+   if (!isAuth) return <Navigate to="/login"/>
 
    return (
       <div className="grid grid-cols-12">
@@ -30,7 +32,7 @@ export const Dialogs = () => {
          </div>
          <Outlet/>
          {!userId ? (
-            <div className="p-3 text-center text-2xl col-span-10 text-black">
+            <div className="p-3 text-center text-2xl col-span-9 text-black">
                Please select a dialog to start messaging.
             </div>
          ) : null}
