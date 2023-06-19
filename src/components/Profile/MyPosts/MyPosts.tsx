@@ -28,7 +28,9 @@ export const MyPosts = () => {
       dispatch(addPost(post))
    }
 
-   if(!isAuth) return <Navigate to='/login'/>
+   if(!isAuth) {
+      return <Navigate to='/login'/>
+   }
 
    return (
       <div>

@@ -10,7 +10,7 @@ import {
    TextField
 } from '@mui/material';
 import {useAppDispatch, useAppSelector} from 'redux/store';
-import {fetchLoginAuth} from 'redux/auth/asyncAction';
+import {fetchLoginAuth, fetchLogoutAuth} from 'redux/auth/asyncAction';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Navigate} from 'react-router-dom';
 import {selectIsAuth} from 'redux/auth/selector';
@@ -37,12 +37,17 @@ export const Login = () => {
       }
    })
 
+   // const logout = () => {
+   //    dispatch(fetchLogoutAuth())
+   // }
+
    const onSubmit: SubmitHandler<FormikErrorType> = (data) => {
       dispatch(fetchLoginAuth({...data}))
    }
 
-   if (isAuth) return <Navigate to="/profile"/>
-
+   if (isAuth) {
+      return <Navigate to="/profile"/>
+   }
 
    return <Grid container justifyContent={'center'}>
       <Grid item justifyContent={'center'}>

@@ -36,8 +36,9 @@ function App() {
                   <Route path="/*" element={<Error/>}/>
                </Routes>
             </div>
-            <div className="bg-gray-200 text-custom" style={{gridArea: 'f', width: 175}}>
-               <Contact />
+            <div className="bg-gray-200 text-custom"
+                 style={{gridArea: 'f', width: 175}}>
+               <Contact/>
             </div>
          </div>
       </BrowserRouter>

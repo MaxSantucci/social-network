@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import logo from '../../assets/logo.png';
-import { NavLink } from 'react-router-dom';
-import {AppDispatch, useAppDispatch, useAppSelector} from '../../redux/store';
-import {selectAuthLogin, selectIsAuth} from '../../redux/auth/selector';
-import {fetchAuth} from '../../redux/auth/asyncAction';
+import {Navigate, NavLink} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from 'redux/store';
+import {selectAuthLogin, selectIsAuth} from 'redux/auth/selector';
+import {fetchAuth, fetchLogoutAuth} from 'redux/auth/asyncAction';
+import LogoutIcon from '@mui/icons-material/Logout';
+import {Button} from '@mui/material';
 
 export const Header = () => {
    const isAuth = useAppSelector(selectIsAuth);
@@ -11,9 +13,13 @@ export const Header = () => {
 
    const dispatch = useAppDispatch();
 
+   const logout = () => {
+      dispatch(fetchLogoutAuth())
+   }
+
    useEffect(() => {
       dispatch(fetchAuth())
-   }, [dispatch]);
+   }, []);
 
 
    return (
@@ -28,22 +34,8 @@ export const Header = () => {
                   Login
                </NavLink>
             )}
+            {isAuth && <Button color="inherit" onClick={logout}>Log out</Button>}
          </div>
       </header>
    );
 };
-
-
-// const fetchAuth = async () => {
-//    try {
-//       const response = await authAPI.getAuth();
-//       if (response.data.resultCode === 0) {
-//          const { id, login, email } = response.data.data;
-//          dispatch(setUserData({id, login, email}));
-//       }
-//    } catch (error) {
-//       console.log(error);
-//    }
-// };
-//
-// fetchAuth().then(r => r);

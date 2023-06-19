@@ -51,6 +51,9 @@ export const authAPI = {
    },
    async loginAuth(data: LoginType) {
       return await instance.post('auth/login', data);
+   },
+   async logoutAuth() {
+      return await instance.delete('auth/login');
    }
 };
 

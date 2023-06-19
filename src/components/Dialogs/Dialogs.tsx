@@ -12,7 +12,6 @@ export const Dialogs = () => {
    const dialogs = useAppSelector(selectDialogs)
    const isAuth = useAppSelector(selectIsAuth)
 
-   console.log(isAuth)
    let dialogsElements = dialogs.map((el) => {
       return (
          <DialogsItem
@@ -23,7 +22,9 @@ export const Dialogs = () => {
       )
    })
 
-   if (!isAuth) return <Navigate to="/login"/>
+   if (!isAuth) {
+      return <Navigate to="/login"/>
+   }
 
    return (
       <div className="grid grid-cols-12">
