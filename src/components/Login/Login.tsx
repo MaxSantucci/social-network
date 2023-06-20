@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import {
    Button,
    Checkbox,
@@ -10,39 +10,59 @@ import {
    TextField
 } from '@mui/material';
 import {useAppDispatch, useAppSelector} from 'redux/store';
-import {fetchLoginAuth, fetchLogoutAuth} from 'redux/auth/asyncAction';
+import {fetchCaptchaImage, fetchLoginAuth} from 'redux/auth/asyncAction';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Navigate} from 'react-router-dom';
-import {selectIsAuth} from 'redux/auth/selector';
+import {
+   selectCaptchaText,
+   selectIsAuth,
+   selectLoginError
+} from 'redux/auth/selector';
 
 type FormikErrorType = {
    email?: string
    password?: string
    rememberMe?: boolean
+   captcha?: string
 }
 
 export const Login = () => {
    const dispatch = useAppDispatch()
    const isAuth = useAppSelector(selectIsAuth)
+   const loginError = useAppSelector(selectLoginError)
+   const captchaRequired = useAppSelector(state => state.auth.captchaRequired)
+   const captchaText = useAppSelector(selectCaptchaText)
+   const captchaImage = useAppSelector(state => state.auth.captchaImage)
+
+   useEffect(() => {
+      if (captchaRequired && !captchaImage) {
+         dispatch(fetchCaptchaImage()); // Dispatch an action to fetch the
+         // captcha image
+      }
+   }, [captchaRequired, captchaImage, dispatch]);
 
    const {
       register,
       handleSubmit,
+      setValue,
       formState: {errors}
    } = useForm<FormikErrorType>({
       defaultValues: {
          email: '',
          password: '',
-         rememberMe: false
+         rememberMe: false,
       }
    })
 
-   // const logout = () => {
-   //    dispatch(fetchLogoutAuth())
-   // }
-
    const onSubmit: SubmitHandler<FormikErrorType> = (data) => {
+      if (captchaRequired && data.captcha !== captchaText) {
+         return;
+      }
       dispatch(fetchLoginAuth({...data}))
+   }
+
+   const saveRememberMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+      setValue('rememberMe', e.target.checked)
    }
 
    if (isAuth) {
@@ -86,16 +106,34 @@ export const Login = () => {
                      })}
                   />
                   {errors.password?.type === 'required' &&
-                     <div style={{color: 'red'}}>Password is required </div>}
+                     <div className="text-red-600">Password is required </div>}
                   {errors.password?.type === 'minLength' &&
-                     <div style={{color: 'red'}}>Should be more then three
+                     <div className="text-red-600">Should be more then three
                         symbols </div>}
-                  <FormControlLabel label={'Remember me'} control={
-                     <Checkbox
-                        // checked={formik.values.rememberMe}
-                        {...register('rememberMe')}
-                     />
-                  }/>
+                  {loginError &&
+                     <div className="text-red-600">{loginError}</div>}
+                  {captchaRequired && captchaImage && (
+                     <>
+                        <img src={captchaImage} alt="Captcha" />
+                        <TextField
+                           label="Enter Captcha"
+                           margin="normal"
+                           {...register('captcha', {
+                              required: true,
+                           })}
+                        />
+                        {errors.captcha && <div style={{ color: 'red' }}>Captcha is required</div>}
+                     </>
+                  )}
+                  <FormControlLabel
+                     label={'Remember me'}
+                     control={
+                        <Checkbox
+                           {...register('rememberMe')}
+                           value={true}
+                           onChange={saveRememberMeHandler}
+                        />
+                     }/>
                   <Button type={'submit'} variant={'contained'}
                           color={'primary'}>
                      Login

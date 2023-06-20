@@ -57,3 +57,9 @@ export const authAPI = {
    }
 };
 
+export const securityAPI = {
+   async getCaptcha() {
+      return await instance.get('/security/get-captcha-url')
+   }
+}
+
