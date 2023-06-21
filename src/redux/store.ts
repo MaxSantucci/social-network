@@ -4,6 +4,7 @@ import profile from './profile/slice';
 import dialogs from './dialogs/slice';
 import users from './users/slice';
 import auth from './auth/slice';
+import app from './app/slice';
 
 export const store = configureStore({
    reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
       dialogs,
       users,
       auth,
+      app,
    }
 })
 

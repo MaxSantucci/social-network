@@ -5,18 +5,15 @@ export type AuthInitialStateType = {
    data: AuthStateType | null,
    isAuth: boolean,
    error: string | null,
-   captchaRequired: boolean,
-   captchaText: string | null,
-   captchaImage: string | null
+   captchaUrl: string | null
 }
+
 
 const initialState: AuthInitialStateType = {
    data: null,
    isAuth: false,
    error: null,
-   captchaRequired: false,
-   captchaText: null,
-   captchaImage: null,
+   captchaUrl: null
 }
 
 export const authSlice = createSlice({
@@ -36,19 +33,13 @@ export const authSlice = createSlice({
          state.isAuth = false
          state.error = null
       },
-      setCaptchaRequired: (state, action: PayloadAction<{
-         captchaText: string
-      }>) => {
-         state.captchaRequired = true
-         state.captchaText = action.payload.captchaText
-      },
-      imageCaptcha: (state, action: PayloadAction<{url: string}>) => {
-         state.captchaImage = action.payload.url
+      imageCaptcha: (state, action: PayloadAction<string>) => {
+         state.captchaUrl = action.payload
       }
    },
 });
 
 
-export const {setUserData, setError, logout, setCaptchaRequired, imageCaptcha} = authSlice.actions;
+export const {setUserData, setError, logout, imageCaptcha} = authSlice.actions;
 export default authSlice.reducer;
 

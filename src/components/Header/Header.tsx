@@ -10,7 +10,6 @@ import {Button} from '@mui/material';
 export const Header = () => {
    const isAuth = useAppSelector(selectIsAuth);
    const userLogin = useAppSelector(selectAuthLogin);
-
    const dispatch = useAppDispatch();
 
    const logout = () => {

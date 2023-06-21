@@ -1,14 +1,8 @@
 import React, {useEffect} from 'react';
 import avatar from '../../assets/avatar.png';
-import {useAppDispatch, useAppSelector} from '../../redux/store';
-import {
-   selectProfileUsers,
-   selectStatusProfile
-} from '../../redux/profile/selectors';
-import {
-   fetchProfileUsers,
-   fetchStatusProfile
-} from '../../redux/profile/asyncAction';
+import {useAppDispatch, useAppSelector} from 'redux/store';
+import {selectProfileUsers, selectStatusProfile} from 'redux/profile/selectors';
+import {fetchProfileUsers, fetchStatusProfile} from 'redux/profile/asyncAction';
 import {useParams} from 'react-router-dom';
 
 export const ProfileInfoUser = () => {
@@ -22,6 +16,7 @@ export const ProfileInfoUser = () => {
       dispatch(fetchProfileUsers({userId}))
       dispatch(fetchStatusProfile({userId}))
    }, [userId, dispatch]);
+   console.log(userId)
 
    return (
       <div>

@@ -3,7 +3,6 @@ import {authAPI, securityAPI} from 'api/httpClientRequest';
 import {
    imageCaptcha,
    logout,
-   setCaptchaRequired,
    setError,
    setUserData
 } from './slice';
@@ -57,4 +56,5 @@ export const fetchLogoutAuth = createAsyncThunk('auth/fetchLogoutAuth', async (_
 export const fetchCaptchaImage = createAsyncThunk('auth/fetchCaptchaImage', async (_, {dispatch}) => {
    const response = await securityAPI.getCaptcha()
    dispatch(imageCaptcha(response.data.url))
+   return response.data.captcha
 })

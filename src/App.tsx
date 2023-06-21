@@ -2,7 +2,7 @@ import './App.css'
 import {Header} from 'components/Header/Header';
 import {Navbar} from 'components/Navbar/Navbar';
 import {Profile} from 'components/Profile/Profile';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Dialogs} from 'components/Dialogs/Dialogs';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Contact} from 'components/Contact/Contact';
@@ -12,8 +12,17 @@ import {Users} from 'components/Users/Users';
 import {ProfileUser} from 'components/ProfileUser/ProfileUser';
 import {Login} from 'components/Login/Login';
 import {Chat} from 'components/Dialogs/Chat/Chat';
+import {useAppDispatch} from 'redux/store';
+import {fetchAuth} from 'redux/auth/asyncAction';
 
 function App() {
+
+   const dispatch = useAppDispatch()
+
+   useEffect(() => {
+      dispatch(fetchAuth())
+   }, [])
+
    return (
       <BrowserRouter>
          <div

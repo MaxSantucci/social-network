@@ -1,4 +1,4 @@
-import {profileUsersAPI} from '../../api/httpClientRequest';
+import {profileUsersAPI} from 'api/httpClientRequest';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ProfileParams} from './type';
 import {

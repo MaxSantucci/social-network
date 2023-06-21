@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {
    Button,
    Checkbox,
@@ -10,19 +10,20 @@ import {
    TextField
 } from '@mui/material';
 import {useAppDispatch, useAppSelector} from 'redux/store';
-import {fetchCaptchaImage, fetchLoginAuth} from 'redux/auth/asyncAction';
+import {fetchLoginAuth} from 'redux/auth/asyncAction';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Navigate} from 'react-router-dom';
 import {
-   selectCaptchaText,
+   selectCaptchaUrl,
    selectIsAuth,
    selectLoginError
 } from 'redux/auth/selector';
 
+
 type FormikErrorType = {
-   email?: string
-   password?: string
-   rememberMe?: boolean
+   email: string
+   password: string
+   rememberMe: boolean
    captcha?: string
 }
 
@@ -30,16 +31,9 @@ export const Login = () => {
    const dispatch = useAppDispatch()
    const isAuth = useAppSelector(selectIsAuth)
    const loginError = useAppSelector(selectLoginError)
-   const captchaRequired = useAppSelector(state => state.auth.captchaRequired)
-   const captchaText = useAppSelector(selectCaptchaText)
-   const captchaImage = useAppSelector(state => state.auth.captchaImage)
+   const captchaUrl = useAppSelector(selectCaptchaUrl)
 
-   useEffect(() => {
-      if (captchaRequired && !captchaImage) {
-         dispatch(fetchCaptchaImage()); // Dispatch an action to fetch the
-         // captcha image
-      }
-   }, [captchaRequired, captchaImage, dispatch]);
+   const [captcha, setCaptcha] = useState('');
 
    const {
       register,
@@ -54,11 +48,28 @@ export const Login = () => {
       }
    })
 
-   const onSubmit: SubmitHandler<FormikErrorType> = (data) => {
-      if (captchaRequired && data.captcha !== captchaText) {
-         return;
+   useEffect(() => {
+      const storedCredentials = localStorage.getItem('credentials')
+      if (storedCredentials) {
+         const {email, password, rememberMe} = JSON.parse(storedCredentials)
+         setValue('email', email)
+         setValue('password', password)
+         setValue('rememberMe', rememberMe)
       }
-      dispatch(fetchLoginAuth({...data}))
+   }, [setValue])
+
+   const onSubmit: SubmitHandler<FormikErrorType> = (data) => {
+      dispatch(fetchLoginAuth({...data, captcha}))
+      if (data.rememberMe) {
+         const {email, password, rememberMe} = data;
+         localStorage.setItem('credentials', JSON.stringify({
+            email,
+            password,
+            rememberMe
+         }));
+      } else {
+         localStorage.removeItem('credentials');
+      }
    }
 
    const saveRememberMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -112,19 +123,6 @@ export const Login = () => {
                         symbols </div>}
                   {loginError &&
                      <div className="text-red-600">{loginError}</div>}
-                  {captchaRequired && captchaImage && (
-                     <>
-                        <img src={captchaImage} alt="Captcha" />
-                        <TextField
-                           label="Enter Captcha"
-                           margin="normal"
-                           {...register('captcha', {
-                              required: true,
-                           })}
-                        />
-                        {errors.captcha && <div style={{ color: 'red' }}>Captcha is required</div>}
-                     </>
-                  )}
                   <FormControlLabel
                      label={'Remember me'}
                      control={
@@ -133,7 +131,20 @@ export const Login = () => {
                            value={true}
                            onChange={saveRememberMeHandler}
                         />
-                     }/>
+                     }
+                  />
+                  {captchaUrl
+                     && (
+                        <>
+                           <img src={captchaUrl} alt="Captcha"/>
+                           <input
+                              type="text"
+                              onChange={(e) => setCaptcha(e.target.value)}
+                              placeholder="Enter captcha"
+                           />
+                        </>
+                     )
+                  }
                   <Button type={'submit'} variant={'contained'}
                           color={'primary'}>
                      Login
