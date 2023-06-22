@@ -12,16 +12,25 @@ import {Users} from 'components/Users/Users';
 import {ProfileUser} from 'components/ProfileUser/ProfileUser';
 import {Login} from 'components/Login/Login';
 import {Chat} from 'components/Dialogs/Chat/Chat';
-import {useAppDispatch} from 'redux/store';
+import {useAppDispatch, useAppSelector} from 'redux/store';
 import {fetchAuth} from 'redux/auth/asyncAction';
+import {selectInitialized} from 'redux/app/selector';
+import {Preloader} from 'components/common/Preloader/Preloader';
+import {fetchInitialize} from 'redux/app/slice';
 
 function App() {
 
    const dispatch = useAppDispatch()
+   const initialized = useAppSelector(selectInitialized)
 
    useEffect(() => {
-      dispatch(fetchAuth())
+      // dispatch(fetchAuth())
+      dispatch(fetchInitialize())
    }, [])
+
+   if(!initialized) {
+      return <Preloader/>
+   }
 
    return (
       <BrowserRouter>
