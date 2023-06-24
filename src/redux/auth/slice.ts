@@ -25,6 +25,11 @@ export const authSlice = createSlice({
          state.isAuth = true
          state.error = null
       },
+      setUserId: (state, action: PayloadAction<{id: number}>) => {
+         if(state.data) {
+            state.data.id = action.payload.id
+         }
+      },
       setError: (state, action: PayloadAction<string>) => {
          state.error = action.payload
       },
@@ -40,6 +45,6 @@ export const authSlice = createSlice({
 });
 
 
-export const {setUserData, setError, logout, imageCaptcha} = authSlice.actions;
+export const {setUserData, setUserId, setError, logout, imageCaptcha} = authSlice.actions;
 export default authSlice.reducer;
 

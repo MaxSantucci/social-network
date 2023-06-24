@@ -13,18 +13,15 @@ import {ProfileUser} from 'components/ProfileUser/ProfileUser';
 import {Login} from 'components/Login/Login';
 import {Chat} from 'components/Dialogs/Chat/Chat';
 import {useAppDispatch, useAppSelector} from 'redux/store';
-import {fetchAuth} from 'redux/auth/asyncAction';
 import {selectInitialized} from 'redux/app/selector';
 import {Preloader} from 'components/common/Preloader/Preloader';
 import {fetchInitialize} from 'redux/app/slice';
 
 function App() {
-
    const dispatch = useAppDispatch()
    const initialized = useAppSelector(selectInitialized)
 
    useEffect(() => {
-      // dispatch(fetchAuth())
       dispatch(fetchInitialize())
    }, [])
 
@@ -36,8 +33,7 @@ function App() {
       <BrowserRouter>
          <div
             className="grid grid-cols-2 grid-rows-[60px,1fr] grid-cols-[2fr,10fr] min-h-screen"
-            style={{gridTemplateAreas: '\'h h h\' \'n c f\''}}
-         >
+            style={{gridTemplateAreas: '\'h h h\' \'n c f\''}}>
             <Header/>
             <Navbar/>
             <div className="bg-gray-100 text-custom" style={{gridArea: 'c'}}>

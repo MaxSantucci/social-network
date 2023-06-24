@@ -10,6 +10,7 @@ const initialState: ProfileState = {
       ],
    },
    profileData: {
+      data: '',
       aboutMe: '',
       contacts: {
          facebook: '',
@@ -33,7 +34,7 @@ const initialState: ProfileState = {
    statusLoading: 'idle',
    error: null,
    isFetching: false,
-   status: ''
+   status: '',
 }
 
 const profileSlice = createSlice({
@@ -67,7 +68,13 @@ const profileSlice = createSlice({
    },
 })
 
-export const { addPost, deletePost, setStatusProfile, setUpdateStatusProfile, setUserProfile }  = profileSlice.actions
+export const {
+   addPost,
+   deletePost,
+   setStatusProfile,
+   setUpdateStatusProfile,
+   setUserProfile
+} = profileSlice.actions
 
 export default profileSlice.reducer;
 

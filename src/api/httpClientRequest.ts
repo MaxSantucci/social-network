@@ -3,13 +3,6 @@ import {UsersPageType} from 'redux/users/type';
 import {ProfileUsersType} from 'redux/profile/type';
 import {AuthDataType, LoginType} from 'redux/auth/types';
 
-export type ResponseType<D = {}> = {
-   resultCode: number
-   messages: Array<string>
-   fieldsErrors: Array<string>
-   data: D
-}
-
 const instance = axios.create({
    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
    withCredentials: true,
@@ -33,10 +26,12 @@ export const usersAPI = {
 
 export const profileUsersAPI = {
    async getUserProfile(userId: string | undefined) {
+      // debugger
       if (!userId) userId = '28830'
       return await instance.get<ProfileUsersType>(`profile/${userId}`)
    },
    async getStatus(userId: string | undefined) {
+      // debugger
       if (!userId) userId = '28830'
       return await instance.get(`profile/status/${userId}`)
    },

@@ -1,13 +1,11 @@
 import {UsersPageType, UsersState, UsersType} from './type';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {fetchSetFollow, fetchSetUnfollow, fetchUsers} from './asyncAction';
-import {profileUsersAPI} from '../../api/httpClientRequest';
 
 const initialState: UsersState = {
    usersPage: {
       items: [],
       currentPage: 1,
-      // pageSize: 10,
       isFetching: false,
       totalCount: 0
    },

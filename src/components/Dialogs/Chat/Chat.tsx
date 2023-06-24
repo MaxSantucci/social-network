@@ -10,6 +10,7 @@ import {AddMessageForm} from 'components/Dialogs/Chat/AddMessageForm';
 
 export const Chat = () => {
    const {userId} = useParams()
+   // console.log(userId)
    const dispatch = useAppDispatch()
    const messages = useAppSelector(getMessagesByUserId(userId));
 

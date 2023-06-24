@@ -9,6 +9,7 @@ export type ProfilePageType = {
 }
 
 export type ProfileUsersType = {
+   data: any
    aboutMe: string
    contacts: {
       facebook: string
@@ -40,11 +41,8 @@ export type ProfileState = {
 }
 
 export type ProfileParams = {
-   userId: string | undefined
-}
-
-export type StatusParams = {
-   status: string | undefined
+   userId?: string | undefined
+   id?: number
 }
 
 

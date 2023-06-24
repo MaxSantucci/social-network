@@ -1,11 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {authAPI, securityAPI} from 'api/httpClientRequest';
-import {
-   imageCaptcha,
-   logout,
-   setError,
-   setUserData
-} from './slice';
+import {imageCaptcha, logout, setError, setUserData} from './slice';
 import {LoginType} from './types';
 
 

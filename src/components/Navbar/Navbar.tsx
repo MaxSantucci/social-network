@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
    faEnvelope,
@@ -14,6 +14,8 @@ import {
 type PropsTypeNavbar = {}
 
 export const Navbar: React.FC<PropsTypeNavbar> = () => {
+   const {id} = useParams()
+   console.log(id)
    const activeStyle = (navData: { isActive: boolean }) =>
       navData.isActive ? 'text-white bg-active' : '';
 
@@ -25,7 +27,8 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
                <FontAwesomeIcon icon={faUser}/>
             </div>
             <div>
-               <NavLink to="/profile" className={activeStyle}>Profile</NavLink>
+               <NavLink to='/profile' className={activeStyle}>Profile</NavLink>
+               {/*<NavLink to={`/profile/${id}`} className={activeStyle}>Profile</NavLink>*/}
             </div>
          </div>
          <div className="flex">

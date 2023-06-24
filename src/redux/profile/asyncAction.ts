@@ -7,6 +7,7 @@ import {
    setUserProfile
 } from './slice';
 
+
 export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchProfileUsers', async (params, {dispatch}) => {
    try {
       const response = await profileUsersAPI.getUserProfile(params.userId);
@@ -16,6 +17,15 @@ export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fe
    }
 });
 
+// export const fetchMyProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchMyProfileUsers', async (params, {dispatch}) => {
+//    try {
+//       const response = await authAPI.getAuth();
+//       dispatch(setUserId(response.data.data.id))
+//    } catch (error) {
+//       throw new Error()
+//    }
+// });
+
 export const fetchStatusProfile = createAsyncThunk<{}, ProfileParams>('profile/fetchStatusProfile', async (params, {dispatch}) => {
    try {
       const response = await profileUsersAPI.getStatus(params.userId);
@@ -24,6 +34,18 @@ export const fetchStatusProfile = createAsyncThunk<{}, ProfileParams>('profile/f
       throw new Error()
    }
 });
+
+// export const fetchMyStatusProfile = createAsyncThunk<{}, ProfileParams>('profile/fetchStatusProfile', async (params, {dispatch}) => {
+//    try {
+//       const response = await authAPI.getAuth();
+//       if (response.data.resultCode === 0) {
+//          let {id} = response.data.data
+//          dispatch(setStatusProfile(id));
+//       }
+//    } catch (error) {
+//       throw new Error()
+//    }
+// });
 
 export const fetchUpdateStatus = createAsyncThunk('profile/fetchStatusProfile', async (status: string, {dispatch}) => {
    try {
