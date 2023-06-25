@@ -8,6 +8,7 @@ export type AuthDataType = {
    data: AuthStateType,
    isAuth: boolean;
    resultCode: number
+   id: number
 }
 
 export type LoginType = {

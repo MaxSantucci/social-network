@@ -13,11 +13,7 @@ import {useAppDispatch, useAppSelector} from 'redux/store';
 import {fetchLoginAuth} from 'redux/auth/asyncAction';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Navigate} from 'react-router-dom';
-import {
-   selectCaptchaUrl,
-   selectIsAuth,
-   selectLoginError
-} from 'redux/auth/selector';
+import {selectCaptchaUrl, selectIsAuth,} from 'redux/auth/selector';
 
 
 type FormikErrorType = {
@@ -30,7 +26,7 @@ type FormikErrorType = {
 export const Login = () => {
    const dispatch = useAppDispatch()
    const isAuth = useAppSelector(selectIsAuth)
-   const loginError = useAppSelector(selectLoginError)
+   const loginError = useAppSelector((state) => state.auth.error)
    const captchaUrl = useAppSelector(selectCaptchaUrl)
 
    const [captcha, setCaptcha] = useState('');

@@ -6,4 +6,3 @@ export const selectProfileUsers = (state: RootState) => state.profile.profileDat
 
 export const selectStatusProfile = (state: RootState) => state.profile.status;
 
-export const selectUserId = (state: RootState) => state.profile.profileData.userId;

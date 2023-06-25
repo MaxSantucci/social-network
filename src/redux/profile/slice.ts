@@ -73,7 +73,7 @@ export const {
    deletePost,
    setStatusProfile,
    setUpdateStatusProfile,
-   setUserProfile
+   setUserProfile,
 } = profileSlice.actions
 
 export default profileSlice.reducer;

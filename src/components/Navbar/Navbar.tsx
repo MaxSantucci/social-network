@@ -11,11 +11,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 
-type PropsTypeNavbar = {}
+export const Navbar = () => {
+   const {userId} = useParams()
+   console.log(userId)
 
-export const Navbar: React.FC<PropsTypeNavbar> = () => {
-   const {id} = useParams()
-   console.log(id)
    const activeStyle = (navData: { isActive: boolean }) =>
       navData.isActive ? 'text-white bg-active' : '';
 
@@ -27,8 +26,8 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
                <FontAwesomeIcon icon={faUser}/>
             </div>
             <div>
+               {/*<NavLink to={`/profile/${userId}`} className={activeStyle}>Profile</NavLink>*/}
                <NavLink to='/profile' className={activeStyle}>Profile</NavLink>
-               {/*<NavLink to={`/profile/${id}`} className={activeStyle}>Profile</NavLink>*/}
             </div>
          </div>
          <div className="flex">
@@ -68,8 +67,7 @@ export const Navbar: React.FC<PropsTypeNavbar> = () => {
                <FontAwesomeIcon icon={faGear}/>
             </div>
             <div>
-               <NavLink to="/settings"
-                        className={activeStyle}>Settings</NavLink>
+               <NavLink to="/settings" className={activeStyle}>Settings</NavLink>
             </div>
          </div>
       </div>

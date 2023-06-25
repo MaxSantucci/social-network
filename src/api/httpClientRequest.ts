@@ -26,12 +26,10 @@ export const usersAPI = {
 
 export const profileUsersAPI = {
    async getUserProfile(userId: string | undefined) {
-      // debugger
       if (!userId) userId = '28830'
       return await instance.get<ProfileUsersType>(`profile/${userId}`)
    },
    async getStatus(userId: string | undefined) {
-      // debugger
       if (!userId) userId = '28830'
       return await instance.get(`profile/status/${userId}`)
    },

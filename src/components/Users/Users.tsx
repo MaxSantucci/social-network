@@ -21,7 +21,6 @@ import avatar from 'assets/avatar.png';
 export const Users = () => {
    const dispatch = useAppDispatch()
    const users = useAppSelector(selectUsers);
-   console.log(users)
    const currentPage = useAppSelector(selectUsersCurrentPage)
    const totalCount = useAppSelector(selectTotalCount)
    const following = useAppSelector(selectFollowingInProgress)
@@ -52,7 +51,6 @@ export const Users = () => {
       <div>
          {users.isFetching ? <Preloader/> : <div>
             {users.items.map(u => {
-               // debugger
                return <div key={u.id} className="flex justify-between items-center mb-2">
                   <NavLink to={`/profileUser/${u.id}`}>
                      <div className="flex items-center">

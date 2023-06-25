@@ -1,6 +1,6 @@
 import {profileUsersAPI} from 'api/httpClientRequest';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ProfileParams} from './type';
+import {ProfileParams,} from './type';
 import {
    setStatusProfile,
    setUpdateStatusProfile,
@@ -17,10 +17,14 @@ export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fe
    }
 });
 
-// export const fetchMyProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchMyProfileUsers', async (params, {dispatch}) => {
+// export const fetchMyProfileUsers = createAsyncThunk<ProfileUsersType, ProfileParams>('profile/fetchMyProfileUsers', async (params, {dispatch, getState}) => {
+//    const state = getState() as RootState
+//
+//    const userId = state.auth.data?.id.toString()
 //    try {
-//       const response = await authAPI.getAuth();
-//       dispatch(setUserId(response.data.data.id))
+//       const response = await profileUsersAPI.getUserProfile(userId);
+//       dispatch(setUserProfile(response.data));
+//       return response.data
 //    } catch (error) {
 //       throw new Error()
 //    }
@@ -34,18 +38,6 @@ export const fetchStatusProfile = createAsyncThunk<{}, ProfileParams>('profile/f
       throw new Error()
    }
 });
-
-// export const fetchMyStatusProfile = createAsyncThunk<{}, ProfileParams>('profile/fetchStatusProfile', async (params, {dispatch}) => {
-//    try {
-//       const response = await authAPI.getAuth();
-//       if (response.data.resultCode === 0) {
-//          let {id} = response.data.data
-//          dispatch(setStatusProfile(id));
-//       }
-//    } catch (error) {
-//       throw new Error()
-//    }
-// });
 
 export const fetchUpdateStatus = createAsyncThunk('profile/fetchStatusProfile', async (status: string, {dispatch}) => {
    try {

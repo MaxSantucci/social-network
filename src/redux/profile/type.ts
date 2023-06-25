@@ -44,5 +44,3 @@ export type ProfileParams = {
    userId?: string | undefined
    id?: number
 }
-
-
