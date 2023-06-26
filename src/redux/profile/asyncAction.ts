@@ -2,6 +2,7 @@ import {profileUsersAPI} from 'api/httpClientRequest';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ProfileParams,} from './type';
 import {
+   setMyProfile,
    setStatusProfile,
    setUpdateStatusProfile,
    setUserProfile
@@ -17,18 +18,14 @@ export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fe
    }
 });
 
-// export const fetchMyProfileUsers = createAsyncThunk<ProfileUsersType, ProfileParams>('profile/fetchMyProfileUsers', async (params, {dispatch, getState}) => {
-//    const state = getState() as RootState
-//
-//    const userId = state.auth.data?.id.toString()
-//    try {
-//       const response = await profileUsersAPI.getUserProfile(userId);
-//       dispatch(setUserProfile(response.data));
-//       return response.data
-//    } catch (error) {
-//       throw new Error()
-//    }
-// });
+export const fetchMyProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchMyProfileUsers', async (params, {dispatch}) => {
+   try {
+      const response = await profileUsersAPI.getUserProfile(params.userId);
+      dispatch(setMyProfile(response.data));
+   } catch (error) {
+      throw new Error()
+   }
+});
 
 export const fetchStatusProfile = createAsyncThunk<{}, ProfileParams>('profile/fetchStatusProfile', async (params, {dispatch}) => {
    try {

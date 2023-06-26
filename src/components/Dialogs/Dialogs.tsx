@@ -1,7 +1,7 @@
 import React from 'react';
 import {Navigate, Outlet, useParams} from 'react-router-dom';
 import {DialogsItem} from './DialogsItem/DialogsItem';
-import {selectDialogs} from 'redux/dialogs/selectors';
+import {selectDialogs} from 'redux/dialogs/selector';
 import {useAppSelector} from 'redux/store';
 import {selectIsAuth} from 'redux/auth/selector';
 

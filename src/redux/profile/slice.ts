@@ -9,6 +9,28 @@ const initialState: ProfileState = {
          {id: v1(), message: 'My first post', likesCount: 150}
       ],
    },
+   myProfileData: {
+      data: '',
+      aboutMe: '',
+      contacts: {
+         facebook: '',
+         website: '',
+         vk: '',
+         twitter: '',
+         instagram: '',
+         youtube: '',
+         github: '',
+         mainLink: '',
+      },
+      lookingForAJob: false,
+      lookingForAJobDescription: '',
+      fullName: '',
+      userId: 0,
+      photos: {
+         small: '',
+         large: '',
+      }
+   },
    profileData: {
       data: '',
       aboutMe: '',
@@ -59,6 +81,9 @@ const profileSlice = createSlice({
       setUserProfile: (state, action: PayloadAction<ProfileUsersType>) => {
          state.profileData = action.payload;
       },
+      setMyProfile: (state, action: PayloadAction<ProfileUsersType>) => {
+         state.myProfileData = action.payload;
+      },
       setStatusProfile: (state, action: PayloadAction<string | undefined>) => {
          state.status = action.payload
       },
@@ -74,6 +99,7 @@ export const {
    setStatusProfile,
    setUpdateStatusProfile,
    setUserProfile,
+   setMyProfile,
 } = profileSlice.actions
 
 export default profileSlice.reducer;

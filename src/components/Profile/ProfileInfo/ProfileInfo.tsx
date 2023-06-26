@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import avatar from '../../../assets/avatar.png';
 import {useAppDispatch, useAppSelector} from 'redux/store';
-import {selectStatusProfile} from 'redux/profile/selectors';
-import {useParams} from 'react-router-dom';
+import {selectStatusProfile} from 'redux/profile/selector';
+
 import {
-   fetchProfileUsers,
+   fetchMyProfileUsers,
    fetchStatusProfile,
    fetchUpdateStatus
 } from 'redux/profile/asyncAction';
@@ -13,17 +13,19 @@ export const ProfileInfo = () => {
    const dispatch = useAppDispatch()
    const status = useAppSelector(selectStatusProfile) || ''
 
+   const userId = useAppSelector((state) => state.auth.data?.id)
+
    const [editMode, setEditMode] = useState<boolean>(false)
    const [newStatus, setNewStatus] = useState<string>(status)
-
-   let userId = useParams<{ userId: string }>();
 
    console.log(userId)
 
    useEffect(() => {
-      dispatch(fetchProfileUsers(userId))
-      dispatch(fetchStatusProfile(userId))
-   }, [dispatch])
+      if(userId) {
+         dispatch(fetchMyProfileUsers({userId: userId.toString()}))
+         dispatch(fetchStatusProfile({userId: userId.toString()}))
+      }
+   }, [userId, dispatch])
 
    const activateEditModeHandler = () => {
       setEditMode(true)

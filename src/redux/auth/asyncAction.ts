@@ -22,7 +22,9 @@ export const fetchLoginAuth = createAsyncThunk('auth/fetchLoginAuth', async (dat
    try {
       const response = await authAPI.loginAuth(data);
       if (response.data.resultCode === 0) {
-         dispatch(setUserData(response.data.data))
+         let {id, login, email} = response.data.data
+         dispatch(setUserData({id, login, email}))
+         return response.data.data
       } else if (response.data.resultCode === 10) {
          dispatch(fetchCaptchaImage())
       } else {

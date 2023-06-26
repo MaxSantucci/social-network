@@ -1,7 +1,7 @@
 import React from 'react';
 import {Post} from './Post/Post';
 import {addPost} from 'redux/profile/slice';
-import {selectPosts} from 'redux/profile/selectors';
+import {selectPosts} from 'redux/profile/selector';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {Navigate} from 'react-router-dom';
 import {selectIsAuth} from 'redux/auth/selector';
@@ -34,7 +34,6 @@ export const MyPosts = () => {
 
    return (
       <div>
-         <h3 className="p-2.5">My post</h3>
          <div className="p-2.5">
             <AddMessageForm
                addPostHandler={addPostHandler}

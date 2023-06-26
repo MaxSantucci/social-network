@@ -16,7 +16,7 @@ import {Navigate} from 'react-router-dom';
 import {selectCaptchaUrl, selectIsAuth,} from 'redux/auth/selector';
 
 
-type FormikErrorType = {
+type FormErrorType = {
    email: string
    password: string
    rememberMe: boolean
@@ -36,7 +36,7 @@ export const Login = () => {
       handleSubmit,
       setValue,
       formState: {errors}
-   } = useForm<FormikErrorType>({
+   } = useForm<FormErrorType>({
       defaultValues: {
          email: '',
          password: '',
@@ -54,7 +54,7 @@ export const Login = () => {
       }
    }, [setValue])
 
-   const onSubmit: SubmitHandler<FormikErrorType> = (data) => {
+   const onSubmit: SubmitHandler<FormErrorType> = (data) => {
       dispatch(fetchLoginAuth({...data, captcha}))
       if (data.rememberMe) {
          const {email, password, rememberMe} = data;

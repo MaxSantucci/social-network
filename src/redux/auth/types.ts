@@ -1,6 +1,6 @@
 export type AuthStateType = {
    id: number;
-   login: string;
+   login?: string;
    email: string;
 }
 

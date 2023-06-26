@@ -20,10 +20,6 @@ export const Post = (props: TypePropsPost) => {
       setIsLiked(!isLiked)
    }
 
-   // const removePostHandler = () => {
-   //    dispatch(deletePost())
-   // }
-
    const buttonPost = `bg-blue-600 text-white rounded w-16 h-6 ${isLiked ? 'bg-blue-900' : ''}`
 
    return (

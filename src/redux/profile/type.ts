@@ -33,6 +33,7 @@ export type ProfileUsersType = {
 
 export type ProfileState = {
    profilePage: ProfilePageType
+   myProfileData: ProfileUsersType
    profileData: ProfileUsersType
    statusLoading: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Messages} from '../Messages/Messages';
-import {getMessagesByUserId} from 'redux/dialogs/selectors';
+import {getMessagesByUserId} from 'redux/dialogs/selector';
 import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {addMessage} from 'redux/dialogs/slice';

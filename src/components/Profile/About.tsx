@@ -3,15 +3,13 @@ import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {selectProfileUsers, selectStatusProfile} from 'redux/profile/selector';
 import {fetchProfileUsers, fetchStatusProfile} from 'redux/profile/asyncAction';
-import avatar from 'assets/avatar.png';
 
-
-export const ProfileUser = () => {
+const About = () => {
    const {userId} = useParams<{ userId: string }>();
    console.log(userId)
    const dispatch = useAppDispatch();
    const profileData = useAppSelector(selectProfileUsers);
-   const status = useAppSelector(selectStatusProfile)
+
 
    useEffect(() => {
       dispatch(fetchProfileUsers({userId}))
@@ -20,13 +18,10 @@ export const ProfileUser = () => {
 
    return (
       <div>
-         <div className="flex">
-            <div>
-               <img className="w-100 h-120" src={avatar} alt="avatar"/>
-            </div>
+         <div>
             <div className="ml-4">
-               <div className="text-2xl text-black">{profileData.fullName}</div>
-               <div className="text-xs text-black h-4">{status}</div>
+               {/*<div className="text-2xl text-black">{profileData.fullName}</div>*/}
+               {/*<div className="text-xs text-black h-4">{status}</div>*/}
                <div className="text-sm text-black mt-2">
                   Actively looking for jobs: {profileData.lookingForAJob}
                </div>
@@ -96,3 +91,5 @@ export const ProfileUser = () => {
       </div>
    );
 };
+
+export default About;
