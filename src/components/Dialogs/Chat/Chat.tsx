@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {addMessage} from 'redux/dialogs/slice';
 import {ADD_MESSAGE} from 'redux/dialogs/type';
-import {AddMessageForm} from 'components/Dialogs/Chat/AddMessageForm';
+import {AddMessageForm} from 'components/Form/AddMessageForm';
 
 
 export const Chat = () => {
@@ -23,10 +23,13 @@ export const Chat = () => {
          {messages && messages.map(m => (
             <Messages key={m.id} message={m.message} isMe={m.isMe}/>
          ))}
-         <AddMessageForm
-            addMessageHandler={addMessageHandler}
-            textButton='Add message'
-         />
+         <div className='flex justify-center'>
+            <AddMessageForm
+               addMessageHandler={addMessageHandler}
+               textButton='Add message'
+               placeholder='Write message'
+            />
+         </div>
       </div>
    );
 };

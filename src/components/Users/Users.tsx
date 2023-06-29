@@ -63,7 +63,7 @@ export const Users = () => {
                   </NavLink>
                   <div className="pr-5">
                      <div
-                        className='w-24 flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-800"'>
+                        className='w-24 flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-active'>
                         {u.followed ? (
                            <button
                               disabled={following.some(id => id === u.id)}

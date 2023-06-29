@@ -6,7 +6,6 @@ export type AuthInitialStateType = {
    isAuth: boolean,
    error: string | null,
    captchaUrl: string | null
-   // userId: string | undefined
 }
 
 const initialState: AuthInitialStateType = {
@@ -14,7 +13,6 @@ const initialState: AuthInitialStateType = {
    isAuth: false,
    error: null,
    captchaUrl: null,
-   // userId: "28330"
 }
 
 export const authSlice = createSlice({

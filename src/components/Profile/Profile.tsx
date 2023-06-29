@@ -1,6 +1,6 @@
 import React from 'react';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import ProfileAbout from 'components/Profile/ProfileAbout';
+import ProfileAbout from 'components/Profile/ProfileAbout/ProfileAbout';
 
 export const Profile = () => {
    return (

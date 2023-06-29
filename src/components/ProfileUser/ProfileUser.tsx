@@ -4,11 +4,19 @@ import {useAppDispatch, useAppSelector} from 'redux/store';
 import {selectProfileUsers, selectStatusProfile} from 'redux/profile/selector';
 import {fetchProfileUsers, fetchStatusProfile} from 'redux/profile/asyncAction';
 import avatar from 'assets/avatar.png';
-
+import {BiSolidContact} from 'react-icons/bi';
+import {
+   AiFillFacebook,
+   AiFillGithub,
+   AiFillTwitterSquare,
+   AiOutlineInstagram,
+   AiOutlineYoutube
+} from 'react-icons/ai';
+import {CgWebsite} from 'react-icons/cg';
 
 export const ProfileUser = () => {
    const {userId} = useParams<{ userId: string }>();
-   console.log(userId)
+
    const dispatch = useAppDispatch();
    const profileData = useAppSelector(selectProfileUsers);
    const status = useAppSelector(selectStatusProfile)
@@ -38,60 +46,61 @@ export const ProfileUser = () => {
                   me: {profileData.aboutMe}</div>
             </div>
          </div>
-         <div className="mt-5">Contact info:</div>
-         <div className="text-gray-900 flex">Facebook:
-            <a
-               href={profileData.contacts.facebook}
-               className="text-black font-normal ml-2"
-               target="_blank"
-            >
-               {profileData.contacts.facebook}
-            </a>
+         <div className="mt-5 flex items-center">
+            <div className="mr-1"><BiSolidContact/></div>
+            Contact info:
          </div>
-         <div className="text-black">Website:
-            <a
-               href={profileData.contacts.website}
-               className="text-black font-normal ml-2"
-               target="_blank"
-            >
-               {profileData.contacts.website}
-            </a>
-         </div>
-         <div className="text-black">Twitter:
-            <a
-               href={profileData.contacts.twitter}
-               className="text-black font-normal ml-2"
-               target="_blank"
-            >
-               {profileData.contacts.twitter}
-            </a>
-         </div>
-         <div className="text-black">Instagram:
-            <a
-               href={profileData.contacts.instagram}
-               className="text-black font-normal ml-2"
-               target="_blank"
-            >
-               {profileData.contacts.instagram}
-            </a>
-         </div>
-         <div className="text-black">Youtube:
-            <a
-               href={profileData.contacts.youtube}
-               className="text-black font-normal ml-2"
-               target="_blank"
-            >
-               {profileData.contacts.youtube}
-            </a>
-         </div>
-         <div className="text-black">Github:
-            <a
-               href={profileData.contacts.github}
-               className="text-black font-normal ml-2"
-               target="_blank"
-            >
-               {profileData.contacts.github}
-            </a>
+         <div className="flex">
+            <div className="mr-2">
+               <div className="text-gray-900 flex items-center">
+                  <AiFillFacebook/> Facebook:
+               </div>
+               <div className="text-gray-900 flex items-center">
+                  <CgWebsite/> Website:
+               </div>
+               <div className="text-gray-900 flex items-center">
+                  <AiFillTwitterSquare/> Twitter:
+               </div>
+               <div className="text-gray-900 flex items-center">
+                  <AiOutlineInstagram/> Instagram:
+               </div>
+               <div className="text-gray-900 flex items-center">
+                  <AiOutlineYoutube/> Youtube:
+               </div>
+               <div className="text-gray-900 flex items-center">
+                  <AiFillGithub/> Github:
+               </div>
+            </div>
+            <div className="flex flex-col">
+               <a href={`https://${profileData.contacts.facebook}`}
+                  target="_blank" rel="noopener noreferrer">
+                  {profileData.contacts.facebook}
+               </a>
+               <a href={`https://${profileData.contacts.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {profileData.contacts.website}
+               </a>
+               <a href={`https://${profileData.contacts.twitter}`}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {profileData.contacts.twitter}
+               </a>
+               <a href={`https://${profileData.contacts.instagram}`}
+                  target="_blank" rel="noopener noreferrer">
+                  {profileData.contacts.instagram}
+               </a>
+               <a href={`https://${profileData.contacts.youtube}`}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {profileData.contacts.youtube}
+               </a>
+               <a href={`https://${profileData.contacts.github}`}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {profileData.contacts.github}
+               </a>
+            </div>
          </div>
       </div>
    );

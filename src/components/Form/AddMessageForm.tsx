@@ -1,5 +1,8 @@
+import {TextareaAutosize} from '@mui/material';
 import React, {KeyboardEvent} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
+import {AiOutlineSend} from 'react-icons/ai';
+import {IoSend} from 'react-icons/io5';
 
 type MessageFormType = {
    message: string
@@ -9,13 +12,15 @@ type AddMessageFormProps = {
    addMessageHandler?: (message: string) => void;
    addPostHandler?: (post: string) => void
    textButton: string
+   placeholder: string
 };
 
 export const AddMessageForm: React.FC<AddMessageFormProps> =
    ({
        addMessageHandler,
        addPostHandler,
-       textButton
+       textButton,
+       placeholder
     }) => {
       const {
          register,
@@ -48,20 +53,22 @@ export const AddMessageForm: React.FC<AddMessageFormProps> =
       return (
          <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col items-center pt-2"
+            className="w-300 h-50 flex justify-center flex-col items-center pt-2 relative"
          >
-         <textarea
-            onKeyUp={keyUpHandler}
-            {...register('message', {
-               required: true,
-            })}
-         ></textarea>
+            <TextareaAutosize
+               className="w-300 h-40 rounded-lg p-2 resize-none pr-8"
+               placeholder={placeholder}
+               onKeyUp={keyUpHandler}
+               {...register('message', {
+                  required: true,
+               })}></TextareaAutosize>
             {errors.message?.type === 'required' &&
                <div style={{color: 'red'}}>Message is required</div>}
             <button
-               className="mt-1 bg-black text-white"
+               className={`mt-1  rounded-lg text-white absolute -translate-y-1/2 right-2 top-1/2 ${errors.message?.type ? 'disabled:opacity-50' : ''}`}
+               disabled={!!errors.message?.type}
             >
-               {textButton}
+               <IoSend className='text-blue-500'/>
             </button>
          </form>
       );

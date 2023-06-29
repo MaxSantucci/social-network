@@ -1,11 +1,11 @@
 import React from 'react';
-import {Post} from './Post/Post';
+import {Post} from 'components/Profile/ProfileAbout/MyPosts/Post/Post';
 import {addPost} from 'redux/profile/slice';
 import {selectPosts} from 'redux/profile/selector';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {Navigate} from 'react-router-dom';
 import {selectIsAuth} from 'redux/auth/selector';
-import {AddMessageForm} from 'components/Dialogs/Chat/AddMessageForm';
+import {AddMessageForm} from 'components/Form/AddMessageForm';
 
 
 export const MyPosts = () => {
@@ -33,15 +33,18 @@ export const MyPosts = () => {
    }
 
    return (
-      <div>
-         <div className="p-2.5">
+      <div className='col-span-2'>
+         <div className="w-400 p-2.5 flex justify-center">
             <AddMessageForm
                addPostHandler={addPostHandler}
                textButton='Add post'
+               placeholder="What's on your mind?"
             />
          </div>
-         <div className="mt-2.5">
-            {postsElement}
+         <div className="mt-2.5 flex">
+            <div className=''>
+               {postsElement}
+            </div>
          </div>
       </div>
    );
