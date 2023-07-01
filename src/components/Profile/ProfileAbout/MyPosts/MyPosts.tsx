@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Post} from 'components/Profile/ProfileAbout/MyPosts/Post/Post';
 import {addPost} from 'redux/profile/slice';
 import {selectPosts} from 'redux/profile/selector';
@@ -8,7 +8,7 @@ import {selectIsAuth} from 'redux/auth/selector';
 import {AddMessageForm} from 'components/Form/AddMessageForm';
 
 
-export const MyPosts = React.memo(() => {
+export const MyPosts = () => {
    const dispatch = useAppDispatch()
    const posts = useAppSelector(selectPosts);
    const isAuth = useAppSelector(selectIsAuth)
@@ -24,9 +24,9 @@ export const MyPosts = React.memo(() => {
       )
    })
 
-   const addPostHandler = useCallback((post: string) => {
+   const addPostHandler = (post: string) => {
       dispatch(addPost(post))
-   }, [])
+   }
 
    if(!isAuth) {
       return <Navigate to='/login'/>
@@ -48,4 +48,4 @@ export const MyPosts = React.memo(() => {
          </div>
       </div>
    );
-});
+};

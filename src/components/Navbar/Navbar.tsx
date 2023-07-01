@@ -13,7 +13,7 @@ import {
 
 export const Navbar = () => {
    const {userId} = useParams()
-   // console.log(userId)
+   console.log(userId)
 
    const activeStyle = (navData: { isActive: boolean }) =>
       navData.isActive ? 'text-white bg-active rounded-lg hover:bg-blue-300 hover:text-black' : '';
