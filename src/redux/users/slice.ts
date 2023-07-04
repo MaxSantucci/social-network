@@ -1,6 +1,7 @@
 import {UsersPageType, UsersState, UsersType} from './type';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {fetchSetFollow, fetchSetUnfollow, fetchUsers} from './asyncAction';
+import {updateInObjectInArray} from 'utils/object-helpers';
 
 const initialState: UsersState = {
    usersPage: {
@@ -20,21 +21,11 @@ export const usersSlice = createSlice({
    reducers: {
       followUsers: (state, action: PayloadAction<number>) => {
          const userId = action.payload
-         state.usersPage.items = state.usersPage.items.map(el => {
-            if (el.id === userId) {
-               return {...el, followed: true}
-            }
-            return el
-         })
+         state.usersPage.items = updateInObjectInArray(state.usersPage.items, userId, 'id', { followed: true });
       },
       unfollowUsers: (state, action: PayloadAction<number>) => {
          const userId = action.payload
-         state.usersPage.items = state.usersPage.items.map(el => {
-            if (el.id === userId) {
-               return {...el, followed: false}
-            }
-            return el
-         })
+         state.usersPage.items = updateInObjectInArray(state.usersPage.items, userId, 'id', { followed: false });
       },
       setUsers: (state, action: PayloadAction<UsersType[]>) => {
          state.usersPage.items = action.payload

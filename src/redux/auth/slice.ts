@@ -44,6 +44,6 @@ export const authSlice = createSlice({
 });
 
 
-export const {setUserData, setUserId, setError, logout, imageCaptcha} = authSlice.actions;
+export const {setUserData, setError, logout, imageCaptcha} = authSlice.actions;
 export default authSlice.reducer;
 
