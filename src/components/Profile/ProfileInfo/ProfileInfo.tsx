@@ -56,7 +56,8 @@ export const ProfileInfo = () => {
                         value={newStatus}
                         onChange={onChangeStatusHandler}
                         onBlur={deactivateEditModeHandler}
-                        type="text"/>
+                        type="text"
+                        data-testid="status-input"/>
                   </div>
                   : <div>
                <span
