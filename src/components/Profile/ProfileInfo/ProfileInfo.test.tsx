@@ -1,10 +1,9 @@
 import React from 'react';
-import { ProfileInfo } from 'components/Profile/ProfileInfo/ProfileInfo';
-import {fireEvent,screen, render} from '@testing-library/react';
+import {ProfileInfo} from 'components/Profile/ProfileInfo/ProfileInfo';
+import {fireEvent, render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {store} from 'redux/store';
 import '@testing-library/jest-dom';
-
 
 
 test('renders without crashing', () => {
@@ -14,20 +13,22 @@ test('renders without crashing', () => {
 });
 
 test('input value is updated correctly', () => {
-   render(<Provider store={store}>
+   render
+   (<Provider store={store}>
       <ProfileInfo/>
    </Provider>);
 
-   const inputElement = screen.getByRole('textbox', { name: 'status-input' }) as HTMLInputElement;
+   const inputElement = screen.getByRole('textbox', {name: 'status-input'}) as HTMLInputElement;
 
-   fireEvent.change(inputElement, { target: { value: 'New status' } });
+   fireEvent.change(inputElement, {target: {value: 'New status'}});
 
    expect(inputElement.value).toBe('New status');
 });
 
 
 test('edit mode is activated on double click', () => {
-   render(<Provider store={store}>
+   render
+   (<Provider store={store}>
       <ProfileInfo/>
    </Provider>);
 
@@ -41,7 +42,8 @@ test('edit mode is activated on double click', () => {
 });
 
 test('edit mode is deactivated on blur', () => {
-   render(<Provider store={store}>
+   render
+   (<Provider store={store}>
       <ProfileInfo/>
    </Provider>);
 

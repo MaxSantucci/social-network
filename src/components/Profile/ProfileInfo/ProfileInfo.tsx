@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from 'redux/store';
 import {selectMyProfile, selectStatusProfile} from 'redux/profile/selector';
 
 import {
-   fetchMyProfileUsers,
+   fetchMyProfileUsers, fetchSavePhoto,
    fetchStatusProfile,
    fetchUpdateStatus
 } from 'redux/profile/asyncAction';
@@ -43,9 +43,19 @@ export const ProfileInfo = () => {
       setNewStatus(e.currentTarget.value)
    }
 
+   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+      if(e.target.files && e.target.files.length) {
+         dispatch(fetchSavePhoto(e.target.files[0]))
+      }
+   }
+
    return (
       <div className="p-2.5 flex">
          <img className="w-100 h-130" src={avatar} alt="avatar"/>
+         <input
+            type="file"
+            onChange={onMainPhotoSelected}
+         />
          <div className="ml-4">
             <div className="text-2xl text-black">{profileMyData.fullName}</div>
             {/*<div className="text-xs text-black h-4">{status}</div>*/}

@@ -99,6 +99,9 @@ const profileSlice = createSlice({
       },
       setUpdateStatusProfile: (state, action: PayloadAction<string>) => {
          state.status = action.payload
+      },
+      setSavePhotoSuccess: (state, action: PayloadAction<{ small: string; large: string }>) => {
+         state.myProfileData.photos = action.payload
       }
    },
 })
@@ -110,6 +113,7 @@ export const {
    setUpdateStatusProfile,
    setUserProfile,
    setMyProfile,
+   setSavePhotoSuccess,
 } = profileSlice.actions
 
 export default profileSlice.reducer;

@@ -43,8 +43,8 @@ describe('Login', () => {
 
       fireEvent.click(screen.getByText('Login'));
 
-      expect(screen.getByText('Email is required')).toBeInTheDocument();
-      expect(screen.getByText('Password is required')).toBeInTheDocument();
+      expect(screen.getByText('To log in get registered')).toBeInTheDocument();
+      expect(screen.getByText('Password: free')).toBeInTheDocument();
    });
 
    it('submits form with valid input', () => {

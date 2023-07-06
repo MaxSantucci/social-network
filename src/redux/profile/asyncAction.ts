@@ -2,7 +2,7 @@ import {profileUsersAPI} from 'api/httpClientRequest';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ProfileParams,} from './type';
 import {
-   setMyProfile,
+   setMyProfile, setSavePhotoSuccess,
    setStatusProfile,
    setUpdateStatusProfile,
    setUserProfile
@@ -41,6 +41,17 @@ export const fetchUpdateStatus = createAsyncThunk('profile/fetchStatusProfile', 
       const response = await profileUsersAPI.updateStatus(status);
       if (response.data.resultCode === 0) {
          dispatch(setUpdateStatusProfile(status));
+      }
+   } catch (error) {
+      throw new Error()
+   }
+});
+
+export const fetchSavePhoto = createAsyncThunk('profile/fetchSavePhoto', async (file: Blob, {dispatch}) => {
+   try {
+      const response = await profileUsersAPI.savePhoto(file);
+      if (response.data.resultCode === 0) {
+         dispatch(setSavePhotoSuccess(response.data.data.photos));
       }
    } catch (error) {
       throw new Error()

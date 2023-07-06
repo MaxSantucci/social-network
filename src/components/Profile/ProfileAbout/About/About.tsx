@@ -43,22 +43,22 @@ const About = () => {
          <div className="flex">
             <div className="mr-2">
                <div className="text-gray-900 flex items-center">
-                  <AiFillFacebook/> Facebook:
+                  <AiFillFacebook className='mr-1'/> Facebook:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <CgWebsite/> Website:
+                  <CgWebsite className='mr-1'/> Website:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiFillTwitterSquare/> Twitter:
+                  <AiFillTwitterSquare className="mr-1"/> Twitter:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiOutlineInstagram/> Instagram:
+                  <AiOutlineInstagram className='mr-1'/> Instagram:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiOutlineYoutube/> Youtube:
+                  <AiOutlineYoutube className='mr-1'/> Youtube:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiFillGithub/> Github:
+                  <AiFillGithub className='mr-1'/> Github:
                </div>
             </div>
             <div className="flex flex-col">
