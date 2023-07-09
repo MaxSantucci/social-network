@@ -40,7 +40,7 @@ const About = () => {
             <div className="mr-1"><BiSolidContact/></div>
             Contact info:
          </div>
-         <div className="flex">
+         <div className="ml-2 flex">
             <div className="mr-2">
                <div className="text-gray-900 flex items-center">
                   <AiFillFacebook className='mr-1'/> Facebook:

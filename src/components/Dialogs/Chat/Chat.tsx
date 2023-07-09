@@ -10,7 +10,6 @@ import {AddMessageForm} from 'components/Form/AddMessageForm';
 
 export const Chat = () => {
    const {userId} = useParams()
-   // console.log(userId)
    const dispatch = useAppDispatch()
    const messages = useAppSelector(getMessagesByUserId(userId));
 
@@ -20,9 +19,11 @@ export const Chat = () => {
 
    return (
       <div className="p-3 col-span-9 text-black">
-         {messages && messages.map(m => (
-            <Messages key={m.id} message={m.message} isMe={m.isMe}/>
-         ))}
+         <div className='mb-2'>
+            {messages && messages.map(m => (
+               <Messages key={m.id} message={m.message} isMe={m.isMe}/>
+            ))}
+         </div>
          <div className='flex justify-center'>
             <AddMessageForm
                addMessageHandler={addMessageHandler}

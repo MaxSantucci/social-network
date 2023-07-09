@@ -14,13 +14,13 @@ export const DialogsItem = (props: PropsDialogsItemType) => {
 
    return (
       <div className="flex items-center rounded-lg">
-         <div className="mr-0.5">
+         <div className="mr-1">
             <RxAvatar/>
          </div>
          <NavLink to={props.to} style={{
             width: '60px',
             display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'left'
          }} className={activeStyle}>{props.name}</NavLink>
       </div>
    )

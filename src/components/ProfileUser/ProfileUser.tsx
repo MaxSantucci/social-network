@@ -30,18 +30,22 @@ export const ProfileUser = () => {
       <div>
          <div className="flex">
             <div>
-               <img className="w-100 h-120" src={avatar} alt="avatar"/>
+               <img
+                  className="w-160 h-160 rounded-full"
+                  src={profileData.photos.large ? profileData.photos.large : avatar}
+                  alt="avatar"/>
             </div>
             <div className="ml-4">
                <div className="text-2xl text-black">{profileData.fullName}</div>
                <div className="text-xs text-black h-4">{status}</div>
                <div className="text-sm text-black mt-2">
-                  Actively looking for jobs: {profileData.lookingForAJob}
+                  Actively looking for
+                  jobs: {profileData.lookingForAJob ? 'yes' : 'no'}
                </div>
-               <div className="text-sm text-black">
-                  Description of desired
-                  job: {profileData.lookingForAJobDescription}
-               </div>
+               {profileData.lookingForAJob &&
+                  <div className="text-sm text-black">
+                     My professional skills: {profileData.lookingForAJobDescription}
+                  </div>}
                <div className="text-sm text-black mt-2">About
                   me: {profileData.aboutMe}</div>
             </div>
@@ -50,7 +54,7 @@ export const ProfileUser = () => {
             <div className="mr-1"><BiSolidContact/></div>
             Contact info:
          </div>
-         <div className="flex">
+         <div className="ml-2 flex">
             <div className="mr-2">
                <div className="text-gray-900 flex items-center">
                   <AiFillFacebook className='mr-1'/> Facebook:

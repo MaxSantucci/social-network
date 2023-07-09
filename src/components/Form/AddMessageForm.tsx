@@ -19,7 +19,6 @@ export const AddMessageForm: React.FC<AddMessageFormProps> =
    ({
        addMessageHandler,
        addPostHandler,
-       textButton,
        placeholder
     }) => {
       const {
@@ -65,7 +64,7 @@ export const AddMessageForm: React.FC<AddMessageFormProps> =
             {errors.message?.type === 'required' &&
                <div style={{color: 'red'}}>Message is required</div>}
             <button
-               className={`mt-1  rounded-lg text-white absolute -translate-y-1/2 right-2 top-1/2 ${errors.message?.type ? 'disabled:opacity-50' : ''}`}
+               className={`mt-1 rounded-lg text-white absolute -translate-y-1/2 right-2 top-1/2 ${errors.message?.type ? 'disabled:opacity-50' : ''}`}
                disabled={!!errors.message?.type}
             >
                <IoSend className='text-blue-500'/>

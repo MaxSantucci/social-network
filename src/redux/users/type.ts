@@ -5,6 +5,9 @@ export type UsersType = {
    uniqueUrlName: string
    avatar: string
    status: string
+   photos: {
+      small: string
+   }
 }
 
 export type UsersPageType = {

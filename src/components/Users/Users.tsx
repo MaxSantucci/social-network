@@ -17,7 +17,6 @@ import Pagination from '@mui/material/Pagination';
 import {NavLink} from 'react-router-dom';
 import avatar from 'assets/avatar.png';
 
-
 export const Users = () => {
    const dispatch = useAppDispatch()
    const users = useAppSelector(selectUsers);
@@ -51,13 +50,18 @@ export const Users = () => {
       <div>
          {users.isFetching ? <Preloader/> : <div>
             {users.items.map(u => {
+               const truncatedStatus = u.status && typeof u.status === 'string' ? (u.status.length > 25 ? u.status.slice(0, 25) + '...' : u.status) : '';
+
                return <div key={u.id} className="flex justify-between items-center mb-2">
                   <NavLink to={`/profileUser/${u.id}`}>
                      <div className="flex items-center">
-                        <img className="w-34 h-14" src={avatar} alt="avatar"/>
-                        <div className='text-black text-lg'>
+                        <img
+                           className="w-60 h-60 rounded-full"
+                           src={u.photos.small ? u.photos.small : avatar}
+                           alt="avatar"/>
+                        <div className='text-black text-lg ml-1'>
                            <div>{u.name}</div>
-                           <div>Status: {u.status}</div>
+                           <div>Status: {truncatedStatus}</div>
                         </div>
                      </div>
                   </NavLink>

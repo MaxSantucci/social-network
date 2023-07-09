@@ -74,12 +74,8 @@ const profileSlice = createSlice({
    initialState,
    reducers: {
       addPost: (state, action: PayloadAction<string>) => {
-         let newPost: PostsType = {
-            id: v1(),
-            message: action.payload,
-            likesCount: 0
-         }
-         state.profilePage.posts = [newPost, ...state.profilePage.posts]
+         let newPost: PostsType = {id: v1(), message: action.payload, likesCount: 0}
+         state.profilePage.posts.unshift(newPost);
       },
       deletePost: (state, action: PayloadAction<string>) => {
          const postId = action.payload
