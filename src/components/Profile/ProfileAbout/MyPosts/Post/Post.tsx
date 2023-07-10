@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import React, {
+   useEffect, useRef,
+   useState
+} from 'react';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {RxAvatar} from 'react-icons/rx';
 import {selectMyProfile} from 'redux/profile/selector';
@@ -38,8 +41,8 @@ export const Post = (props: TypePropsPost) => {
       dispatch(deletePost(props.id))
    }
 
-   // function useOutsideClick (callback:() => void)  {
-   //    const ref = React.useRef();
+   // function useOutsideClick(callback: () => void) {
+   //    const ref = useRef<HTMLDivElement>(null);
    //
    //    useEffect(() => {
    //       const handleClick = (event: MouseEvent) => {
@@ -74,7 +77,7 @@ export const Post = (props: TypePropsPost) => {
                   </button>
                   {modalOpen && (
                      <div
-                        className="w-100 bg-gray-100 absolute top-0 right-0 mt-2 p-4 rounded-lg shadow">
+                        className="w-100 bg-gray-100 absolute top-0 right-0 p-4 rounded-lg shadow">
                         <button className="flex items-center"
                                 onClick={deletePostHandler}>
                            <div className="mr-1"><AiOutlineDelete/></div>

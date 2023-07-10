@@ -12,7 +12,7 @@ import {
 import {MdAddPhotoAlternate} from 'react-icons/md';
 import {
    EditProfileModal
-} from 'components/Profile/EditProfileModal/EditProfileModal';
+} from 'components/Profile/EditProfileModal/EditProfileModal';import {BiSolidPencil} from 'react-icons/bi';
 
 export const ProfileInfo = () => {
    const dispatch = useAppDispatch()
@@ -50,7 +50,7 @@ export const ProfileInfo = () => {
    }
 
    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-      if(e.target.files && e.target.files.length) {
+      if (e.target.files && e.target.files.length) {
          dispatch(fetchSavePhoto(e.target.files[0]))
       }
    }
@@ -59,28 +59,33 @@ export const ProfileInfo = () => {
       setIsModalOpen(true);
    };
 
+   const closeModal = () => {
+      setIsModalOpen(false);
+   };
+
    return (
       <div className="p-2.5 flex">
-        <div className='relative inline-block group'>
-           <img
-              className="w-160 h-160 rounded-full"
-              src={profileMyData.photos.large ? profileMyData.photos.large : avatar}
-              alt="avatar"/>
-           <label htmlFor="file-upload" className="custom-file-upload cursor-pointer absolute right-2 top-3/4">
-              <div className="flex justify-center bg-gray-300 rounded-full items-center w-8 h-8">
-                 <MdAddPhotoAlternate className='w-6 h-6' />
-              </div>
-           </label>
-           <input
-              id="file-upload"
-              type="file"
-              className="hidden"
-              onChange={onMainPhotoSelected}
-           />
-        </div>
-         <div className="ml-4">
+         <div className="relative inline-block group">
+            <img
+               className="w-160 h-160 rounded-full"
+               src={profileMyData.photos.large ? profileMyData.photos.large : avatar}
+               alt="avatar"/>
+            <label htmlFor="file-upload"
+                   className="custom-file-upload cursor-pointer absolute right-2 top-3/4">
+               <div
+                  className="flex justify-center bg-gray-200 rounded-full items-center w-8 h-8 hover:bg-gray-300">
+                  <MdAddPhotoAlternate className="w-6 h-6"/>
+               </div>
+            </label>
+            <input
+               id="file-upload"
+               type="file"
+               className="hidden"
+               onChange={onMainPhotoSelected}
+            />
+         </div>
+         <div className="ml-4 relative">
             <div className="text-2xl text-black">{profileMyData.fullName}</div>
-            {/*<div className="text-xs text-black h-4">{status}</div>*/}
             <div>
                {editMode
                   ? <div>
@@ -93,27 +98,38 @@ export const ProfileInfo = () => {
                   </div>
                   : <div>
                <span
-                  className='text-black text-1xl'
+                  className="text-black text-1xl"
                   onDoubleClick={activateEditModeHandler}
                >{status ? ' ' + status : ' -'}</span>
                   </div>
                }
             </div>
             <div className="text-sm text-black mt-2">
-               Actively looking for jobs: {profileMyData.lookingForAJob ? 'yes' : 'no'}
+               Actively looking for
+               jobs: {profileMyData.lookingForAJob ? 'yes' : 'no'}
             </div>
-            <div className="text-sm text-black">
-               Description of desired
-               job: {profileMyData.lookingForAJobDescription}
-            </div>
-            <div className="text-sm text-black mt-2 mb-1">About me: {profileMyData.aboutMe}</div>
-            <div className='w-100 bg-gray-300 rounded-lg'>
+            {profileMyData.lookingForAJob &&
+               <div className="text-sm text-black">
+                  My professional skills: {profileMyData.lookingForAJobDescription}
+               </div>}
+            <div className="text-sm text-black mt-2 mb-1">About
+               me: {profileMyData.aboutMe}</div>
+            <div className="w-120 bg-gray-200 rounded-lg flex items-center hover:bg-gray-300">
+               <BiSolidPencil className='text-black ml-2'/>
                <button
-                  className='bg-gray-300 text-black ml-3'
+                  className="text-black ml-1"
                   onClick={openModal}
-               >Edit profile</button>
+               >Edit profile
+               </button>
             </div>
-            {isModalOpen && <EditProfileModal />}
+            {isModalOpen && (
+               <div
+                  className="fixed w-full h-full top-0 left-0 bg-opacity-50 bg-black z-50 flex justify-center overflow-y-auto">
+                  <div className='mt-36'>
+                     <EditProfileModal closeModal={closeModal}/>
+                  </div>
+               </div>
+            )}
          </div>
       </div>
    );
