@@ -2,7 +2,7 @@ import './App.css'
 import {Header} from 'components/Header/Header';
 import {Navbar} from 'components/Navbar/Navbar';
 import React, {lazy, Suspense, useEffect} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Contact} from 'components/Contact/Contact';
 import {News} from 'components/News/News';
 import {Error} from 'components/Error/Error';

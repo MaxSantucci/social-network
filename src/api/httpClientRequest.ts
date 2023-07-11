@@ -42,6 +42,9 @@ export const profileUsersAPI = {
             'Content-type': 'multipart/form-data'
          }
       })
+   },
+   async saveProfile(profile: ProfileUsersType) {
+      return await instance.put(`profile`, profile)
    }
 }
 

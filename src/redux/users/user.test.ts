@@ -9,8 +9,8 @@ beforeEach(() => {
    startState={
       usersPage: {
          items: [
-            {id: 1, name: 'User',followed: false, uniqueUrlName: "Das", avatar: '', status: 'Hello'},
-            {id: 2, name: 'User 2',followed: false, uniqueUrlName: "Georgi", avatar: '', status: 'I free'}
+            {id: 1, name: 'User',followed: false, uniqueUrlName: "Das", avatar: '', status: 'Hello', photos: {small: 'photo'}},
+            {id: 2, name: 'User 2',followed: false, uniqueUrlName: "Georgi", avatar: '', status: 'I free', photos: {small: 'photo'}}
          ],
          currentPage: 1,
          isFetching: false,
@@ -55,8 +55,8 @@ describe('user test', () => {
       const expectedState = {
          usersPage: {
             items: [
-               {id: 1, name: 'User',followed: false, uniqueUrlName: "Das", avatar: '', status: 'Hello'},
-               {id: 2, name: 'User 2',followed: true, uniqueUrlName: "Georgi", avatar: '', status: 'I free'}
+               {id: 1, name: 'User',followed: false, uniqueUrlName: "Das", avatar: '', status: 'Hello', photos: {small: 'photo'}},
+               {id: 2, name: 'User 2',followed: true, uniqueUrlName: "Georgi", avatar: '', status: 'I free', photos: {small: 'photo'}}
             ],
             currentPage: 1,
             isFetching: false,

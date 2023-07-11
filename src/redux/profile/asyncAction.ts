@@ -1,6 +1,6 @@
 import {profileUsersAPI} from 'api/httpClientRequest';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ProfileParams,} from './type';
+import {ProfileParams, ProfileUsersType,} from './type';
 import {
    setMyProfile, setSavePhotoSuccess,
    setStatusProfile,
@@ -52,6 +52,18 @@ export const fetchSavePhoto = createAsyncThunk('profile/fetchSavePhoto', async (
       const response = await profileUsersAPI.savePhoto(file);
       if (response.data.resultCode === 0) {
          dispatch(setSavePhotoSuccess(response.data.data.photos));
+      }
+   } catch (error) {
+      throw new Error()
+   }
+});
+
+export const fetchSaveProfile = createAsyncThunk('profile/fetchSavePhoto', async (profile: ProfileUsersType, {dispatch, getState}) => {
+   const userId = getState().auth.userId;
+   try {
+      const response = await profileUsersAPI.saveProfile(profile);
+      if (response.data.resultCode === 0) {
+         dispatch(fetchProfileUsers(userId));
       }
    } catch (error) {
       throw new Error()
