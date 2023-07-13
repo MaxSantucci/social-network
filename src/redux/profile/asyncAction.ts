@@ -7,6 +7,7 @@ import {
    setUpdateStatusProfile,
    setUserProfile
 } from './slice';
+import {RootState} from 'redux/store';
 
 
 export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchProfileUsers', async (params, {dispatch}) => {
@@ -58,14 +59,23 @@ export const fetchSavePhoto = createAsyncThunk('profile/fetchSavePhoto', async (
    }
 });
 
-export const fetchSaveProfile = createAsyncThunk('profile/fetchSavePhoto', async (profile: ProfileUsersType, {dispatch, getState}) => {
-   const userId = getState().auth.userId;
-   try {
-      const response = await profileUsersAPI.saveProfile(profile);
-      if (response.data.resultCode === 0) {
-         dispatch(fetchProfileUsers(userId));
+export const fetchSaveProfile = createAsyncThunk(
+   'profile/fetchSaveProfile',
+   async (profile: ProfileUsersType, { dispatch, getState }) => {
+      const userId = (getState() as RootState).profile.myProfileData.userId;
+      try {
+         const response = await profileUsersAPI.saveProfile(profile);
+         if (response.data.resultCode === 0) {
+            dispatch(fetchProfileUsers({userId}));
+         }
+      } catch (error) {
+         throw new Error();
       }
-   } catch (error) {
-      throw new Error()
    }
-});
+);
+
+
+
+
+
+

@@ -1,7 +1,6 @@
 import {TextareaAutosize} from '@mui/material';
 import React, {KeyboardEvent} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
-import {AiOutlineSend} from 'react-icons/ai';
 import {IoSend} from 'react-icons/io5';
 
 type MessageFormType = {

@@ -1,14 +1,10 @@
 import React, {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {
    selectMyProfile,
-   selectProfileUsers,
-   selectStatusProfile
 } from 'redux/profile/selector';
 import {
    fetchMyProfileUsers,
-   fetchProfileUsers,
    fetchStatusProfile
 } from 'redux/profile/asyncAction';
 import {BiSolidContact} from 'react-icons/bi';

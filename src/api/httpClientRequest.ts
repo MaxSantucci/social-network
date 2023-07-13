@@ -44,7 +44,8 @@ export const profileUsersAPI = {
       })
    },
    async saveProfile(profile: ProfileUsersType) {
-      return await instance.put(`profile`, profile)
+
+      return await instance.put('profile', profile)
    }
 }
 

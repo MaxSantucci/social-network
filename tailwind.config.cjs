@@ -13,7 +13,9 @@ module.exports = {
          colors: {
             custom: "#29669c",
             black: "#000000",
-            active: '#14213D'
+            active: '#14213D',
+            button: "#DAE7F2",
+            button_hover: "#CADFFF",
          },
          width: {
             '60': '60px',
@@ -24,9 +26,11 @@ module.exports = {
             '120': '120px',
             '160': '160px',
             '175': '175px',
+            '254': '254px',
             '300': '300px',
             '400': '400px',
             '500': '500px',
+            '668': '668px',
             '700': '700px',
          },
          maxWidth: {

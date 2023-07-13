@@ -25,7 +25,6 @@ const initialState: ProfileState = {
       contacts: {
          facebook: '',
          website: '',
-         vk: '',
          twitter: '',
          instagram: '',
          youtube: '',
@@ -35,7 +34,7 @@ const initialState: ProfileState = {
       lookingForAJob: false,
       lookingForAJobDescription: '',
       fullName: '',
-      userId: 0,
+      userId: '',
       photos: {
          small: '',
          large: '',
@@ -47,7 +46,6 @@ const initialState: ProfileState = {
       contacts: {
          facebook: '',
          website: '',
-         vk: '',
          twitter: '',
          instagram: '',
          youtube: '',
@@ -57,7 +55,7 @@ const initialState: ProfileState = {
       lookingForAJob: false,
       lookingForAJobDescription: '',
       fullName: '',
-      userId: 0,
+      userId: '',
       photos: {
          small: '',
          large: '',

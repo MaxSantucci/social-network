@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import avatar from '../../../assets/avatar.png';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {selectMyProfile, selectStatusProfile} from 'redux/profile/selector';
@@ -25,6 +25,8 @@ export const ProfileInfo = () => {
    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
    const [newStatus, setNewStatus] = useState<string>(status)
 
+   const modalRef = useRef<HTMLDivElement | null>(null);
+
    useEffect(() => {
       setNewStatus(status)
    }, [status])
@@ -35,6 +37,20 @@ export const ProfileInfo = () => {
          dispatch(fetchStatusProfile({userId: userId.toString()}))
       }
    }, [userId, dispatch])
+
+   const handleClickOutside = (event: any) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+         console.log('click3')
+         setIsModalOpen(false);
+      }
+   };
+
+   useEffect(() => {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+         document.removeEventListener('mousedown', handleClickOutside);
+      };
+   }, []);
 
    const activateEditModeHandler = () => {
       setEditMode(true)
@@ -61,10 +77,14 @@ export const ProfileInfo = () => {
 
    const closeModal = () => {
       setIsModalOpen(false);
+      if(userId) {
+         dispatch(fetchMyProfileUsers({userId: userId.toString()}))
+      }
    };
 
    return (
-      <div className="p-2.5 flex">
+      <div
+         className="p-2.5 flex">
          <div className="relative inline-block group">
             <img
                className="w-160 h-160 rounded-full"
@@ -124,9 +144,11 @@ export const ProfileInfo = () => {
             </div>
             {isModalOpen && (
                <div
-                  className="fixed w-full h-full top-0 left-0 bg-opacity-50 bg-black z-50 flex justify-center overflow-y-auto">
+                  className="fixed w-full h-full top-0 left-0 bg-opacity-50 bg-black z-10 flex justify-center overflow-y-auto">
                   <div className='mt-36'>
-                     <EditProfileModal closeModal={closeModal}/>
+                     <div ref={modalRef}>
+                        <EditProfileModal closeModal={closeModal}/>
+                     </div>
                   </div>
                </div>
             )}

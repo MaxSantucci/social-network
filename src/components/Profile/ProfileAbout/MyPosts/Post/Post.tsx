@@ -3,7 +3,6 @@ import React, {
    useState
 } from 'react';
 import {useAppDispatch, useAppSelector} from 'redux/store';
-import {RxAvatar} from 'react-icons/rx';
 import {selectMyProfile} from 'redux/profile/selector';
 import {BsThreeDots} from 'react-icons/bs';
 import {AiFillLike, AiOutlineDelete, AiOutlineLike} from 'react-icons/ai';
@@ -26,6 +25,8 @@ export const Post = (props: TypePropsPost) => {
    const [isLiked, setIsLiked] = useState<boolean>(false)
    const [modalOpen, setModalOpen] = useState<boolean>(false)
 
+   const modalRef = useRef<HTMLDivElement | null>(null);
+
    const dispatch = useAppDispatch()
 
    const onClickLikeHandler = () => {
@@ -41,32 +42,26 @@ export const Post = (props: TypePropsPost) => {
       dispatch(deletePost(props.id))
    }
 
-   // function useOutsideClick(callback: () => void) {
-   //    const ref = useRef<HTMLDivElement>(null);
-   //
-   //    useEffect(() => {
-   //       const handleClick = (event: MouseEvent) => {
-   //          if (ref.current && !ref.current.contains(event.target as Node)) {
-   //             callback();
-   //          }
-   //       };
-   //
-   //       document.addEventListener('click', handleClick);
-   //
-   //       return () => {
-   //          document.removeEventListener('click', handleClick);
-   //       };
-   //    }, []);
-   //
-   //    return ref;
-   // }
+   const handleClickOutside = (event: any) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+         setModalOpen(false);
+      }
+   };
+
+   useEffect(() => {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+         document.removeEventListener('mousedown', handleClickOutside);
+      };
+   }, []);
 
    return (
       <div className="w-400 pt-5">
          <div className="w-400 pt-5">
             <div className="flex justify-between">
                <div className="flex items-center mb-1">
-                  <RxAvatar className="w-7 h-7 mr-1"/>
+                  <img className="w-7 h-7 rounded-full mr-1" src={profileMyData.photos.small} alt="avatar"/>
+                  {/*<RxAvatar className="w-7 h-7 mr-1"/>*/}
                   <div>{profileMyData.fullName}</div>
                </div>
                <div className="relative">
@@ -77,6 +72,7 @@ export const Post = (props: TypePropsPost) => {
                   </button>
                   {modalOpen && (
                      <div
+                        ref={modalRef}
                         className="w-100 bg-gray-100 absolute top-0 right-0 p-4 rounded-lg shadow">
                         <button className="flex items-center"
                                 onClick={deletePostHandler}>
