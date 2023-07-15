@@ -13,7 +13,7 @@ import {FiLogOut} from 'react-icons/fi';
 
 export const Header = () => {
    const isAuth = useAppSelector(selectIsAuth);
-   const userLogin = useAppSelector(selectAuthLogin);
+   // const userLogin = useAppSelector(selectAuthLogin);
    // const login = useAppSelector((state) => state.profile.myProfileData.fullName)
    const login = useAppSelector(selectMyLogin)
    const dispatch = useAppDispatch();
@@ -26,13 +26,13 @@ export const Header = () => {
       dispatch(fetchAuth())
    }, []);
 
-   console.log(userLogin)
+   // console.log(userLogin)
    return (
       <header className="flex justify-between bg-gray-50 pt-2.5 pl-1" style={{ gridArea: 'h' }}>
          <img className="w-30 h-10" src={logo} alt="logo" />
 
          <div className="flex mr-5 mt-2 mb-5 text-2xl text-custom">
-            {isAuth && userLogin ? (
+            {isAuth ? (
                <span>{login}</span>
             ) : (
                <div className="pb-5">

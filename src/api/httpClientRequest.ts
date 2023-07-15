@@ -3,6 +3,13 @@ import {UsersPageType} from 'redux/users/type';
 import {ProfileUsersType} from 'redux/profile/type';
 import {AuthDataType, LoginType} from 'redux/auth/types';
 
+export type ResponseType<D = {}> = {
+   data: D
+   fieldsErrors: Array<{ field: string, error: string }>
+   messages: string[]
+   resultCode: number
+}
+
 const instance = axios.create({
    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
    withCredentials: true,
@@ -44,7 +51,6 @@ export const profileUsersAPI = {
       })
    },
    async saveProfile(profile: ProfileUsersType) {
-
       return await instance.put('profile', profile)
    }
 }
@@ -54,7 +60,9 @@ export const authAPI = {
       return await instance.get<AuthDataType>('auth/me');
    },
    async loginAuth(data: LoginType) {
-      return await instance.post('auth/login', data);
+      debugger
+      // const data = {email, password, rememberMe, captcha}
+      return instance.post<ResponseType>('auth/login', data)
    },
    async logoutAuth() {
       return await instance.delete('auth/login');

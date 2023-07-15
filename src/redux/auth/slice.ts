@@ -1,39 +1,47 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AuthStateType} from './types';
+import {AuthDataType} from 'redux/auth/types';
 
-export type AuthInitialStateType = {
-   data: AuthStateType | null,
-   isAuth: boolean,
-   error: string | null,
-   captchaUrl: string | null
-}
-
-const initialState: AuthInitialStateType = {
-   data: null,
+const initialState: AuthDataType = {
+   data: {
+      id: null,
+      login: '',
+      email: '',
+   },
    isAuth: false,
    error: null,
    captchaUrl: null,
+   resultCode: 0
+}
+
+type UserDataType = {
+   // data: {
+      id: number | null
+      login: string
+      email: string
+   // }
 }
 
 export const authSlice = createSlice({
    name: 'auth',
    initialState,
    reducers: {
-      setUserData: (state, action: PayloadAction<AuthStateType>) => {
-         state.data = action.payload
+      setUserData: (state, action: PayloadAction<UserDataType>) => {
+         // debugger
+         // const { id, login, email } = action.payload;
+         // state.id = id;
+         // state.login = login;
+         // state.email = email;
+         state.data = action.payload;
          state.isAuth = true
          state.error = null
-      },
-      setUserId: (state, action: PayloadAction<{id: number}>) => {
-         if(state.data) {
-            state.data.id = action.payload.id
-         }
       },
       setError: (state, action: PayloadAction<string>) => {
          state.error = action.payload
       },
       logout: (state) => {
-         state.data = null
+         // state.id = null;
+         // state.login = '';
+         // state.email = '';
          state.isAuth = false
          state.error = null
       },

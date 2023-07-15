@@ -3,11 +3,13 @@ import {authAPI, securityAPI} from 'api/httpClientRequest';
 import {imageCaptcha, logout, setError, setUserData} from './slice';
 import {LoginType} from './types';
 
-export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params, { dispatch }) => {
+export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (_, { dispatch }) => {
    try {
       const response = await authAPI.getAuth();
+      // debugger
       if (response.data.resultCode === 0) {
-         let {id, login, email} = response.data.data
+         debugger
+         let {id, login, email} = response.data
          dispatch(setUserData({id, login, email}));
       }
    } catch (error) {
@@ -15,34 +17,47 @@ export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params, { dis
    }
 });
 
-export const fetchLoginAuth = createAsyncThunk('auth/fetchLoginAuth', async (data: LoginType, {
-   dispatch,
-   rejectWithValue
-}) => {
-   try {
-      const response = await authAPI.loginAuth(data);
+// export const fetchLoginAuth = createAsyncThunk('auth/fetchLoginAuth', async (data: LoginType, {
+//    dispatch,
+//    rejectWithValue
+// }) => {
+//    try {
+//       debugger
+//       const response = await authAPI.loginAuth(data);
+//       if (response.data.resultCode === 0) {
+//          dispatch(fetchAuth())
+//          // return response.data
+//       } else if (response.data.resultCode === 10) {
+//          dispatch(fetchCaptchaImage())
+//       } else {
+//          const errorMessage = response.data.messages[0] || 'Login failed';
+//          dispatch(setError(errorMessage));
+//       }
+//    } catch (error) {
+//       dispatch(setError('Login failed'));
+//    }
+// });
+
+export const fetchLoginAuth = createAsyncThunk(
+   "auth/login",
+   async ({ email, password, rememberMe, captcha }, { dispatch }) => {
+      const response = await authAPI.loginAuth({ email, password, rememberMe, captcha });
       if (response.data.resultCode === 0) {
-         let {id, login, email} = response.data.data
-         dispatch(setUserData({id, login, email}))
-         return response.data.data
+         dispatch(fetchAuth());
       } else if (response.data.resultCode === 10) {
-         dispatch(fetchCaptchaImage())
+         dispatch(fetchCaptchaImage());
       } else {
          const errorMessage = response.data.messages[0] || 'Login failed';
          dispatch(setError(errorMessage));
-         return rejectWithValue(errorMessage)
       }
-   } catch (error) {
-      dispatch(setError('Login failed'));
-      return rejectWithValue('Login failed');
    }
-});
+);
 
 export const fetchLogoutAuth = createAsyncThunk('auth/fetchLogoutAuth', async (_, { dispatch }) => {
    try {
       const response = await authAPI.logoutAuth();
       if (response.data.resultCode === 0) {
-         dispatch(logout(response.data.data))
+         dispatch(logout(response.data))
       }
    } catch (error) {
       throw new Error()

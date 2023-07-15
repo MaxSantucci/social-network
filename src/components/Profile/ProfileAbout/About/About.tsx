@@ -16,8 +16,7 @@ import {
 import {CgWebsite} from 'react-icons/cg';
 
 const About = () => {
-   const userId = useAppSelector((state) => state.auth.data?.id)
-   console.log(userId)
+   const userId = useAppSelector((state) => state.auth.id)
 
    const profileMyData = useAppSelector(selectMyProfile)
 

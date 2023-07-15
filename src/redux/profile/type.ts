@@ -41,6 +41,5 @@ export type ProfileState = {
 }
 
 export type ProfileParams = {
-   userId?: string | undefined
-   id?: number
+   userId: string | undefined
 }

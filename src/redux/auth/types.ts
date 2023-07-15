@@ -1,21 +1,20 @@
-export type AuthStateType = {
-   id: number;
-   login?: string;
-   email: string;
-}
-
 export type AuthDataType = {
-   data: AuthStateType,
-   isAuth: boolean;
+  data: {
+     id: number | null
+     login: string
+     email: string
+  }
+   isAuth: boolean,
+   error: string | null,
+   captchaUrl: string | null
    resultCode: number
-   id: number
 }
 
 export type LoginType = {
-   email?: string
-   password?: string
-   rememberMe?: boolean
-   captcha?: string
+   email: string
+   password: string
+   rememberMe: boolean
+   captcha: string
 }
 
 

@@ -2,7 +2,8 @@ import {profileUsersAPI} from 'api/httpClientRequest';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ProfileParams, ProfileUsersType,} from './type';
 import {
-   setMyProfile, setSavePhotoSuccess,
+   setMyProfile,
+   setSavePhotoSuccess,
    setStatusProfile,
    setUpdateStatusProfile,
    setUserProfile
@@ -18,6 +19,20 @@ export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fe
       throw new Error()
    }
 });
+
+// export const fetchMyProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchMyProfileUsers', async (params, { dispatch, rejectWithValue }) => {
+//    try {
+//       const response = await profileUsersAPI.getUserProfile(params.userId);
+//       dispatch(setMyProfile(response.data));
+//    } catch (error) {
+//       // Handle the error in a meaningful way
+//       // For example, you can log the error or provide a specific error message
+//       console.error('Error fetching user profile:', error);
+//
+//       // Reject the promise with a specific error value using `rejectWithValue`
+//       return rejectWithValue({ errorMessage: 'Failed to fetch user profile' });
+//    }
+// });
 
 export const fetchMyProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchMyProfileUsers', async (params, {dispatch}) => {
    try {
@@ -66,7 +81,7 @@ export const fetchSaveProfile = createAsyncThunk(
       try {
          const response = await profileUsersAPI.saveProfile(profile);
          if (response.data.resultCode === 0) {
-            dispatch(fetchProfileUsers({userId}));
+            dispatch(fetchMyProfileUsers({userId}));
          }
       } catch (error) {
          throw new Error();

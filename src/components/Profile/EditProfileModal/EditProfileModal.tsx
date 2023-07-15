@@ -35,12 +35,14 @@ export const EditProfileModal: React.FC<EditProfileModalTypeProps> = ({closeModa
    });
 
    const model = {
-      facebook: '',
-      website: '',
-      twitter: '',
-      instagram: '',
-      youtube: '',
-      github: '',
+      contacts: {
+         facebook: '',
+         website: '',
+         twitter: '',
+         instagram: '',
+         youtube: '',
+         github: '',
+      }
    }
 
    const onSubmit: SubmitHandler<ProfileUsersType> = (data: ProfileUsersType) => {

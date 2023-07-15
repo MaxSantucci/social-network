@@ -2,7 +2,6 @@ import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import avatar from '../../../assets/avatar.png';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {selectMyProfile, selectStatusProfile} from 'redux/profile/selector';
-
 import {
    fetchMyProfileUsers,
    fetchSavePhoto,
@@ -13,13 +12,14 @@ import {MdAddPhotoAlternate} from 'react-icons/md';
 import {
    EditProfileModal
 } from 'components/Profile/EditProfileModal/EditProfileModal';import {BiSolidPencil} from 'react-icons/bi';
+import {useParams} from 'react-router-dom';
 
 export const ProfileInfo = () => {
    const dispatch = useAppDispatch()
    const status = useAppSelector(selectStatusProfile) || ''
    const profileMyData = useAppSelector(selectMyProfile)
-
-   const userId = useAppSelector((state) => state.auth.data?.id)
+   // const userId = useAppSelector((state) => state.auth.data?.id)
+   const {userId} = useParams<{ userId: string }>();
 
    const [editMode, setEditMode] = useState<boolean>(false)
    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
