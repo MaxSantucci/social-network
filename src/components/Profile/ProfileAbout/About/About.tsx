@@ -14,10 +14,11 @@ import {
    AiOutlineInstagram, AiOutlineYoutube
 } from 'react-icons/ai';
 import {CgWebsite} from 'react-icons/cg';
+import {selectAuthLogin} from 'redux/auth/selector';
 
 const About = () => {
-   const userId = useAppSelector((state) => state.auth.id)
-
+   const userId = useAppSelector(selectAuthLogin)
+   console.log(userId)
    const profileMyData = useAppSelector(selectMyProfile)
 
    const dispatch = useAppDispatch();
@@ -57,34 +58,48 @@ const About = () => {
                </div>
             </div>
             <div className="flex flex-col">
-               <a href={`https://${profileMyData.contacts.facebook}`}
-                  target="_blank" rel="noopener noreferrer">
-                  {profileMyData.contacts.facebook}
-               </a>
-               <a href={`https://${profileMyData.contacts.website}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileMyData.contacts.website}
-               </a>
-               <a href={`https://${profileMyData.contacts.twitter}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileMyData.contacts.twitter}
-               </a>
-               <a href={`https://${profileMyData.contacts.instagram}`}
-                  target="_blank" rel="noopener noreferrer">
-                  {profileMyData.contacts.instagram}
-               </a>
-               <a href={`https://${profileMyData.contacts.youtube}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileMyData.contacts.youtube}
-               </a>
-               <a href={`https://${profileMyData.contacts.github}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileMyData.contacts.github}
-               </a>
+               <div>
+                  {profileMyData.contacts.facebook
+                     ? (<a href={profileMyData.contacts.facebook} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileMyData.contacts.facebook}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileMyData.contacts.website
+                     ? (<a href={profileMyData.contacts.website} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileMyData.contacts.website}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileMyData.contacts.twitter
+                     ? (<a href={profileMyData.contacts.twitter} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileMyData.contacts.twitter}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileMyData.contacts.instagram
+                     ? (<a href={profileMyData.contacts.instagram} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileMyData.contacts.instagram}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileMyData.contacts.youtube
+                     ? (<a href={profileMyData.contacts.youtube} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileMyData.contacts.youtube}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileMyData.contacts.github
+                     ? (<a href={profileMyData.contacts.github} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileMyData.contacts.github}</a>)
+                     : ('-')}
+               </div>
             </div>
          </div>
       </div>

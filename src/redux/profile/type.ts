@@ -12,13 +12,14 @@ export type ProfileUsersType = {
    data: any
    aboutMe: string
    contacts: {
-      facebook: string
-      website: string
-      twitter: string
-      instagram: string
-      youtube: string
-      github: string
-      mainLink?: string
+      facebook: string | undefined
+      website: string | undefined
+      twitter: string | undefined
+      instagram: string | undefined
+      youtube: string | undefined
+      github: string | undefined
+      mainLink: string | undefined
+      vk: string | undefined
    },
    lookingForAJob: boolean
    lookingForAJobDescription: string

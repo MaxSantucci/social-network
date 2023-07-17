@@ -6,6 +6,9 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import {TextareaAutosize} from '@mui/material';
 import {fetchSaveProfile} from 'redux/profile/asyncAction';
 import {ProfileUsersType} from 'redux/profile/type';
+import {ContactInfo} from 'components/Profile/EditProfileModal/ContactInfo/ContactInfo';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 type EditProfileModalTypeProps = {
    closeModal: () => void
@@ -15,9 +18,21 @@ export const EditProfileModal: React.FC<EditProfileModalTypeProps> = ({closeModa
    const dispatch = useAppDispatch()
    const profileMyData = useAppSelector(selectMyProfile)
 
+   const validationSchema = yup.object().shape({
+      fullName: yup.string().required('Full name is required'),
+      lookingForAJobDescription: yup
+         .string()
+         .when('lookingForAJob', {
+            is: true,
+            then: yup.string().required('Skills are required when looking for a job'),
+         }),
+      aboutMe: yup.string().required('About me is required'),
+   });
+
    const [isLookingForJob, setIsLookingForJob] = useState<boolean>(false);
 
    const {register, handleSubmit} = useForm<ProfileUsersType>({
+      resolver: yupResolver(validationSchema),
       defaultValues: {
          fullName: profileMyData.fullName,
          lookingForAJob: profileMyData.lookingForAJob,
@@ -33,17 +48,6 @@ export const EditProfileModal: React.FC<EditProfileModalTypeProps> = ({closeModa
          },
       },
    });
-
-   const model = {
-      contacts: {
-         facebook: '',
-         website: '',
-         twitter: '',
-         instagram: '',
-         youtube: '',
-         github: '',
-      }
-   }
 
    const onSubmit: SubmitHandler<ProfileUsersType> = (data: ProfileUsersType) => {
       closeModal()
@@ -85,7 +89,8 @@ export const EditProfileModal: React.FC<EditProfileModalTypeProps> = ({closeModa
                   <div className="h-30 text-sm text-black">
                      <input
                         className="w-6 h-6"
-                        type="checkbox" {...register('lookingForAJob')}
+                        type="checkbox"
+                        {...register('lookingForAJob')}
                         checked={isLookingForJob}
                         onChange={handleCheckboxChange}
                      />
@@ -106,23 +111,30 @@ export const EditProfileModal: React.FC<EditProfileModalTypeProps> = ({closeModa
             <div className="mt-4 mb-2 text-custom pt-2 pl-2">
                <div>Contact info:</div>
             </div>
-            {Object.keys(model).map((key) => {
-               const typedKey = key as keyof ProfileUsersType;
-               return (
-                  <div className="flex ml-2"
-                       key={key}>
-                     <div className="w-254 mb-2 h-40 pt-2 pl-2">
-                        <label htmlFor={key}>{key}:</label>
-                     </div>
-                     <div>
-                        <input
-                           className="w-300 h-40 rounded-lg p-2 resize-none pr-8"
-                           {...register(typedKey)}
-                           type="text" id={key}/>
-                     </div>
-                  </div>
-               );
-            })}
+            <ContactInfo
+               register={register}
+               name='Facebbok'
+               nameRegister='facebook'/>
+            <ContactInfo
+               register={register}
+               name='Website'
+               nameRegister='website'/>
+            <ContactInfo
+               register={register}
+               name='Twitter'
+               nameRegister='twitter'/>
+            <ContactInfo
+               register={register}
+               name='Instagram'
+               nameRegister='instagram'/>
+            <ContactInfo
+               register={register}
+               name='Youtube'
+               nameRegister='youtube'/>
+            <ContactInfo
+               register={register}
+               name='Github'
+               nameRegister='github'/>
             <button
                className="w-668 h-40 rounded-lg font-medium text-blue-800 ml-4 mr-4 mb-4 bg-button hover:bg-button_hover"
                type="submit">Edit your About info
@@ -131,4 +143,5 @@ export const EditProfileModal: React.FC<EditProfileModalTypeProps> = ({closeModa
       </form>
    );
 };
+
 

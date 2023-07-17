@@ -1,20 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {
-   Button,
-   Checkbox,
-   FormControl,
-   FormControlLabel,
-   FormGroup,
-   FormLabel,
-   Grid,
-   TextField
-} from '@mui/material';
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material';
 import {useAppDispatch, useAppSelector} from 'redux/store';
 import {fetchLoginAuth} from 'redux/auth/asyncAction';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Navigate} from 'react-router-dom';
 import {selectCaptchaUrl, selectIsAuth,} from 'redux/auth/selector';
-
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 type FormErrorType = {
    email: string
@@ -31,12 +23,20 @@ export const Login = () => {
 
    const [captcha, setCaptcha] = useState('');
 
+   const validationSchema = yup.object({
+      email: yup.string().required('Email is required').email('Invalid email address'),
+      password: yup.string().required('Password is required').min(3, 'Should be' +
+         ' at least 3 characters long')
+   });
+
    const {
       register,
       handleSubmit,
       setValue,
       formState: {errors}
    } = useForm<FormErrorType>({
+      // @ts-ignore
+      resolver: yupResolver(validationSchema),
       defaultValues: {
          email: '',
          password: '',
@@ -94,29 +94,28 @@ export const Login = () => {
                   <TextField
                      label="Email"
                      margin="normal"
-                     {...register('email', {
-                        required: true,
-                        pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-                     })}
+                     {...register('email')}
+                     error={!!errors.email}
+                     helperText={errors.email?.message}
                   />
-                  {errors.email?.type === 'required' &&
-                     <div style={{color: 'red'}}>Email is required </div>}
-                  {errors.email?.type === 'pattern' &&
-                     <div style={{color: 'red'}}>Invalid email address </div>}
+                  {/*{errors.email && <p>{errors.email?.message}</p>}*/}
+                  {/*{errors.email?.type === 'required' &&*/}
+                  {/*   <div style={{color: 'red'}}>Email is required </div>}*/}
+                  {/*{errors.email?.type === 'pattern' &&*/}
+                  {/*   <div style={{color: 'red'}}>Invalid email address </div>}*/}
                   <TextField
                      type="password"
                      label="Password"
                      margin="normal"
-                     {...register('password', {
-                        required: true,
-                        minLength: 3
-                     })}
+                     {...register('password')}
+                     error={!!errors.password}
+                     helperText={errors.password?.message}
                   />
-                  {errors.password?.type === 'required' &&
-                     <div className="text-red-600">Password is required </div>}
-                  {errors.password?.type === 'minLength' &&
-                     <div className="text-red-600">Should be more then three
-                        symbols </div>}
+                  {/*{errors.password?.type === 'required' &&*/}
+                  {/*   <div className="text-red-600">Password is required </div>}*/}
+                  {/*{errors.password?.type === 'minLength' &&*/}
+                  {/*   <div className="text-red-600">Should be more then three*/}
+                  {/*      symbols </div>}*/}
                   {loginError &&
                      <div className="text-red-600">{loginError}</div>}
                   <FormControlLabel

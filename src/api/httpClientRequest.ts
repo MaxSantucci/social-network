@@ -1,14 +1,7 @@
 import axios from 'axios';
 import {UsersPageType} from 'redux/users/type';
 import {ProfileUsersType} from 'redux/profile/type';
-import {AuthDataType, LoginType} from 'redux/auth/types';
-
-export type ResponseType<D = {}> = {
-   data: D
-   fieldsErrors: Array<{ field: string, error: string }>
-   messages: string[]
-   resultCode: number
-}
+import {LoginType, ResponseType} from 'redux/auth/types';
 
 const instance = axios.create({
    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -57,11 +50,9 @@ export const profileUsersAPI = {
 
 export const authAPI = {
    async getAuth() {
-      return await instance.get<AuthDataType>('auth/me');
+      return await instance.get('auth/me');
    },
    async loginAuth(data: LoginType) {
-      debugger
-      // const data = {email, password, rememberMe, captcha}
       return instance.post<ResponseType>('auth/login', data)
    },
    async logoutAuth() {
@@ -74,4 +65,3 @@ export const securityAPI = {
       return await instance.get('/security/get-captcha-url')
    }
 }
-

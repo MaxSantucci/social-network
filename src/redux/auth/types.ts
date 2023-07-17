@@ -1,5 +1,6 @@
 export type AuthDataType = {
   data: {
+     data: any
      id: number | null
      login: string
      email: string
@@ -15,6 +16,13 @@ export type LoginType = {
    password: string
    rememberMe: boolean
    captcha: string
+}
+
+export type ResponseType<D = {}> = {
+   data: D
+   fieldsErrors: Array<{ field: string, error: string }>
+   messages: string[]
+   resultCode: number
 }
 
 

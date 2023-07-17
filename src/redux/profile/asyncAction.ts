@@ -9,6 +9,8 @@ import {
    setUserProfile
 } from './slice';
 import {RootState} from 'redux/store';
+import {setError} from 'redux/auth/slice';
+import {useForm} from 'react-hook-form';
 
 
 export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchProfileUsers', async (params, {dispatch}) => {
@@ -20,22 +22,9 @@ export const fetchProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fe
    }
 });
 
-// export const fetchMyProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchMyProfileUsers', async (params, { dispatch, rejectWithValue }) => {
-//    try {
-//       const response = await profileUsersAPI.getUserProfile(params.userId);
-//       dispatch(setMyProfile(response.data));
-//    } catch (error) {
-//       // Handle the error in a meaningful way
-//       // For example, you can log the error or provide a specific error message
-//       console.error('Error fetching user profile:', error);
-//
-//       // Reject the promise with a specific error value using `rejectWithValue`
-//       return rejectWithValue({ errorMessage: 'Failed to fetch user profile' });
-//    }
-// });
-
 export const fetchMyProfileUsers = createAsyncThunk<{}, ProfileParams>('profile/fetchMyProfileUsers', async (params, {dispatch}) => {
    try {
+      // debugger
       const response = await profileUsersAPI.getUserProfile(params.userId);
       dispatch(setMyProfile(response.data));
    } catch (error) {
@@ -77,20 +66,20 @@ export const fetchSavePhoto = createAsyncThunk('profile/fetchSavePhoto', async (
 export const fetchSaveProfile = createAsyncThunk(
    'profile/fetchSaveProfile',
    async (profile: ProfileUsersType, { dispatch, getState }) => {
+      // debugger
       const userId = (getState() as RootState).profile.myProfileData.userId;
       try {
          const response = await profileUsersAPI.saveProfile(profile);
          if (response.data.resultCode === 0) {
             dispatch(fetchMyProfileUsers({userId}));
+         } else {
+            const errorMessage = response.data.messages[0] || 'Failed to save profile';
+            const {setError} = useForm();
+            setError('profile', {message: errorMessage});
          }
       } catch (error) {
-         throw new Error();
+         dispatch(setError('An error occurred while saving the profile'));
+         throw error;
       }
    }
 );
-
-
-
-
-
-

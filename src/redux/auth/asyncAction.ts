@@ -6,42 +6,18 @@ import {LoginType} from './types';
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (_, { dispatch }) => {
    try {
       const response = await authAPI.getAuth();
-      // debugger
       if (response.data.resultCode === 0) {
-         debugger
-         let {id, login, email} = response.data
-         dispatch(setUserData({id, login, email}));
+         dispatch(setUserData(response.data));
       }
    } catch (error) {
       throw new Error()
    }
 });
 
-// export const fetchLoginAuth = createAsyncThunk('auth/fetchLoginAuth', async (data: LoginType, {
-//    dispatch,
-//    rejectWithValue
-// }) => {
-//    try {
-//       debugger
-//       const response = await authAPI.loginAuth(data);
-//       if (response.data.resultCode === 0) {
-//          dispatch(fetchAuth())
-//          // return response.data
-//       } else if (response.data.resultCode === 10) {
-//          dispatch(fetchCaptchaImage())
-//       } else {
-//          const errorMessage = response.data.messages[0] || 'Login failed';
-//          dispatch(setError(errorMessage));
-//       }
-//    } catch (error) {
-//       dispatch(setError('Login failed'));
-//    }
-// });
-
 export const fetchLoginAuth = createAsyncThunk(
    "auth/login",
-   async ({ email, password, rememberMe, captcha }, { dispatch }) => {
-      const response = await authAPI.loginAuth({ email, password, rememberMe, captcha });
+   async ({email, password, rememberMe, captcha}: LoginType, {dispatch}) => {
+      const response = await authAPI.loginAuth({email, password, rememberMe, captcha});
       if (response.data.resultCode === 0) {
          dispatch(fetchAuth());
       } else if (response.data.resultCode === 10) {

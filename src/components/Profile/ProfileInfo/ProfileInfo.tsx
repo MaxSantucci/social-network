@@ -9,17 +9,15 @@ import {
    fetchUpdateStatus
 } from 'redux/profile/asyncAction';
 import {MdAddPhotoAlternate} from 'react-icons/md';
-import {
-   EditProfileModal
-} from 'components/Profile/EditProfileModal/EditProfileModal';import {BiSolidPencil} from 'react-icons/bi';
-import {useParams} from 'react-router-dom';
+import {EditProfileModal} from 'components/Profile/EditProfileModal/EditProfileModal';
+import {BiSolidPencil} from 'react-icons/bi';
+import {selectAuthLogin} from 'redux/auth/selector';
 
 export const ProfileInfo = () => {
    const dispatch = useAppDispatch()
    const status = useAppSelector(selectStatusProfile) || ''
    const profileMyData = useAppSelector(selectMyProfile)
-   // const userId = useAppSelector((state) => state.auth.data?.id)
-   const {userId} = useParams<{ userId: string }>();
+   const userId = useAppSelector(selectAuthLogin)
 
    const [editMode, setEditMode] = useState<boolean>(false)
    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -156,4 +154,3 @@ export const ProfileInfo = () => {
       </div>
    );
 };
-

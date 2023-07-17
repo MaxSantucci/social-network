@@ -37,7 +37,7 @@ beforeEach(() => {
          lookingForAJob: false,
          lookingForAJobDescription: '',
          fullName: '',
-         userId: 0,
+         userId: '',
          photos: {
             small: '',
             large: '',
@@ -59,7 +59,7 @@ beforeEach(() => {
          lookingForAJob: false,
          lookingForAJobDescription: '',
          fullName: '',
-         userId: 0,
+         userId: '',
          photos: {
             small: '',
             large: '',

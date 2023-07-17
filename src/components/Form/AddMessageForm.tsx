@@ -31,6 +31,10 @@ export const AddMessageForm: React.FC<AddMessageFormProps> =
          },
       });
       const onSubmit: SubmitHandler<MessageFormType> = (data) => {
+         if (data.message.trim() === '') {
+            return
+         }
+
          if (addMessageHandler) {
             addMessageHandler(data.message)
             setValue('message', '')
@@ -51,7 +55,7 @@ export const AddMessageForm: React.FC<AddMessageFormProps> =
       return (
          <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-300 h-50 flex justify-center flex-col items-center pt-2 relative"
+            className="w-300 h-72 flex justify-center flex-col items-center pt-2 relative"
          >
             <TextareaAutosize
                className="w-300 h-40 rounded-lg p-2 resize-none pr-8"
@@ -60,14 +64,16 @@ export const AddMessageForm: React.FC<AddMessageFormProps> =
                {...register('message', {
                   required: true,
                })}></TextareaAutosize>
-            {errors.message?.type === 'required' &&
-               <div style={{color: 'red'}}>Message is required</div>}
             <button
                className={`mt-1 rounded-lg text-white absolute -translate-y-1/2 right-2 top-1/2 ${errors.message?.type ? 'disabled:opacity-50' : ''}`}
                disabled={!!errors.message?.type}
             >
                <IoSend className='text-blue-500'/>
             </button>
+            <div>
+               {errors.message?.type === 'required' &&
+                  <div className='text-red-600 h-0.5'>Message is required</div>}
+            </div>
          </form>
       );
    };

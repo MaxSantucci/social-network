@@ -57,53 +57,67 @@ export const ProfileUser = () => {
          <div className="ml-2 flex">
             <div className="mr-2">
                <div className="text-gray-900 flex items-center">
-                  <AiFillFacebook className='mr-1'/> Facebook:
+                  <AiFillFacebook className="mr-1"/> Facebook:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <CgWebsite className='mr-1'/> Website:
+                  <CgWebsite className="mr-1"/> Website:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiFillTwitterSquare className='mr-1'/> Twitter:
+                  <AiFillTwitterSquare className="mr-1"/> Twitter:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiOutlineInstagram className='mr-1'/> Instagram:
+                  <AiOutlineInstagram className="mr-1"/> Instagram:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiOutlineYoutube className='mr-1'/> Youtube:
+                  <AiOutlineYoutube className="mr-1"/> Youtube:
                </div>
                <div className="text-gray-900 flex items-center">
-                  <AiFillGithub className='mr-1'/> Github:
+                  <AiFillGithub className="mr-1"/> Github:
                </div>
             </div>
             <div className="flex flex-col">
-               <a href={`https://${profileData.contacts.facebook}`}
-                  target="_blank" rel="noopener noreferrer">
-                  {profileData.contacts.facebook}
-               </a>
-               <a href={`https://${profileData.contacts.website}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileData.contacts.website}
-               </a>
-               <a href={`https://${profileData.contacts.twitter}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileData.contacts.twitter}
-               </a>
-               <a href={`https://${profileData.contacts.instagram}`}
-                  target="_blank" rel="noopener noreferrer">
-                  {profileData.contacts.instagram}
-               </a>
-               <a href={`https://${profileData.contacts.youtube}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileData.contacts.youtube}
-               </a>
-               <a href={`https://${profileData.contacts.github}`}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {profileData.contacts.github}
-               </a>
+               <div>
+                  {profileData.contacts.facebook
+                     ? (<a href={profileData.contacts.facebook} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileData.contacts.facebook}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileData.contacts.website
+                     ? (<a href={profileData.contacts.website} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileData.contacts.website}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileData.contacts.twitter
+                     ? (<a href={profileData.contacts.twitter} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileData.contacts.twitter}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileData.contacts.instagram
+                     ? (<a href={profileData.contacts.instagram} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileData.contacts.instagram}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileData.contacts.youtube
+                     ? (<a href={profileData.contacts.youtube} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileData.contacts.youtube}</a>)
+                     : ('-')}
+               </div>
+               <div>
+                  {profileData.contacts.github
+                     ? (<a href={profileData.contacts.github} target="_blank"
+                           rel="noopener noreferrer">
+                        {profileData.contacts.github}</a>)
+                     : ('-')}
+               </div>
             </div>
          </div>
       </div>

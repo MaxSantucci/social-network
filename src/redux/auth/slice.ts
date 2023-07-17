@@ -3,6 +3,7 @@ import {AuthDataType} from 'redux/auth/types';
 
 const initialState: AuthDataType = {
    data: {
+      data: '',
       id: null,
       login: '',
       email: '',
@@ -15,9 +16,10 @@ const initialState: AuthDataType = {
 
 type UserDataType = {
    // data: {
-      id: number | null
-      login: string
-      email: string
+   data: null
+   id: number | null
+   login: string
+   email: string
    // }
 }
 
